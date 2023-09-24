@@ -1,22 +1,24 @@
 import * as React from 'react';
+import "./signup.css"
 
 const SignUp = () => {
 
     return (
 
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm profile-picture">
                 <img
                     className="mx-auto  rounded-xl"
                     src="https://static.vecteezy.com/system/resources/thumbnails/009/209/212/small/neon-glowing-profile-icon-3d-illustration-vector.jpg"
                     alt="avatar pic"
                 />
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" style={{
-                    color: "#f8961d"
-                }}>
-                    Sign up and join the club
-                </h2>
+
             </div>
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" style={{
+                color: "#f8961d"
+            }}>
+                Sign up and join the club
+            </h2>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form className="space-y-6" action="#" method="POST">
