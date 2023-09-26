@@ -1,0 +1,133 @@
+/* src/components/HomePage.css */
+
+#home-page {
+    font-family: 'Arial', sans-serif;
+    /*background-color: #000;*/
+    color: #fff;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+}
+
+#home {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    display: flex;
+    /*flex-direction: column;*/
+    align-items: center;
+}
+
+.image {
+
+    width: 300px;
+    height: 200px;
+    background-color: #222;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    margin: 10px;
+    /*opacity: 0;*/
+    /*transform: translateY(20px);*/
+    /*transition: opacity 0.5s, transform 0.5s;*/
+}
+
+/*.image.show {*/
+/*    opacity: 1;*/
+/*    transform: translateY(0);*/
+/*}*/
+
+/* Footer */
+.footer {
+    /*background: #f2f2f2;*/
+    /*color: #616161;*/
+    color: #00ffcc;
+    font-size: 12px;
+    padding: 20px 0;
+
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.footer div {
+    /*margin-bottom: 20px;*/
+    display: flex;
+    /*align-items: center;*/
+    padding: 20px 0;
+
+
+}
+
+.footer div i {
+    /*margin-right: 10px;*/
+}
+
+/*.footer ul {*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;*/
+/*}*/
+
+.footer li {
+    /*margin-right: 30px;*/
+    /*margin-bottom: 20px;*/
+}
+
+/* Add this to your CSS stylesheet */
+/* Add this to your CSS stylesheet */
+#slogan {
+    animation: bounce 2s ease infinite; /* Adjust the animation duration as needed */
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px); /* Adjust the bounce height as needed */
+    }
+}
+
+/* Parallax.css */
+.parallax-container {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax-bg {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHT-OgG4dEOoFnDBvfGLGhDXyAdJ83kEXNBw&usqp=CAU');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* This creates the parallax effect */
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.content {
+    padding: 100px;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+
