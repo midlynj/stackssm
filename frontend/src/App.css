@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.item {
+
+  min-height: 10rem;
+  min-width: 16rem;
+  padding: 40px;
+  object-fit: cover;
+  border-radius:10%;
+}
+
+.item img {
+  width: 100%;
+  height: 70%;
+  border-radius: 2rem;
+  pointer-events: none;
+}
+
+.inner-carousel {
+  display: flex;
+  /*background-color: #0ad5bb;*/
+}
+
+.carousel {
+  cursor: grab;
+  overflow: hidden;
+  /*background-color: #4d1091;*/
+
+}
