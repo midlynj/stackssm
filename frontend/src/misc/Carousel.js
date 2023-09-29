@@ -1,18 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import { Container} from 'react-bootstrap';
 import {motion} from 'framer-motion';
 import {images} from "./people";
 
 const Carousel = () =>  {
-
-
-    // const [width, setWidth] = useState(0);
     const carousel = useRef();
-    // useEffect(() => {
-    //     console.log(carousel.current.scrollWidth, carousel.current.offsetWidth)
-    //     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth)
-    //
-    // },[])
 
     return (
         <Container className="py-4">
@@ -29,7 +21,7 @@ const Carousel = () =>  {
 
                             <motion.div className="item" key={image}>
 
-                                <img src={image} alt="" style={{
+                                <img src={image} alt="people carousel" style={{
                                     boxShadow:"0 0 10px rgba(0, 0, 255, 0.5)"
                                 }}/>
 
