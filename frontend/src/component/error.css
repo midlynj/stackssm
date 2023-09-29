@@ -19,8 +19,8 @@
     -webkit-text-fill-color: transparent;
 }
 
-p {
-    font-size: 24px;
+.gradient {
+    /*font-size: 24px;*/
     animation: colorChange 4s linear infinite;
 }
 
