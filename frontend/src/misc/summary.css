@@ -1,0 +1,23 @@
+.about-section {
+    padding: 40px;
+    text-align: center;
+    color: #00ffcc;
+}
+
+.about-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    font-size: 18px;
+    color: ghostwhite;
+}
+
+.summary-section {
+    background-color: #17181a;
+    padding: 20px;
+    border: 1px solid #00ffcc;
+    margin-top: 20px
+}
