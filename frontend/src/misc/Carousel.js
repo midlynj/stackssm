@@ -1,6 +1,6 @@
-import React, {useRef} from 'react';
-import { Container} from 'react-bootstrap';
-import {motion} from 'framer-motion';
+import React, {useRef} from "react";
+import { Container} from "react-bootstrap";
+import {motion} from "framer-motion";
 import {images} from "./people";
 
 const Carousel = () =>  {
@@ -33,6 +33,6 @@ const Carousel = () =>  {
 
             </motion.div>
         </Container>
-    )
+    );
 }
 export default Carousel
