@@ -1,6 +1,7 @@
 package com.example.stacks.controller;
 
 import com.example.stacks.entity.User;
+import com.example.stacks.payload.SignIn;
 import com.example.stacks.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody User user) {
-        return userService.authenticateUser(user);
+    public ResponseEntity<?> authenticateUser(@RequestBody SignIn signInCredentials) {
+        return userService.authenticateUser(signInCredentials);
     }
 }

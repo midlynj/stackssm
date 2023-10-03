@@ -1,10 +1,12 @@
 package com.example.stacks.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,5 +20,9 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+
+    @OneToMany(mappedBy = "author")
+    @JsonIgnoreProperties("author")
+    private Collection<Post> posts;
 
 }
