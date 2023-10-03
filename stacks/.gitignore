@@ -33,3 +33,4 @@ build/
 .vscode/
 /src/main/resources/application.yml
 /.mvn/
+/src/main/java/com/example/stacks/misc/FieldHelper.java
