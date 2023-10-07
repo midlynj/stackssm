@@ -12,5 +12,4 @@ import java.time.LocalDate;
 public class PostDto {
     private String content;
     private LocalDate createdAt;
-//    private Long authorId;
 }

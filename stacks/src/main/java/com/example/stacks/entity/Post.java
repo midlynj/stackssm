@@ -20,17 +20,6 @@ public class Post {
     private LocalDate createdAt;
 
     @ManyToOne
-    @JsonIgnoreProperties({"posts", "password"})
+    @JsonIgnoreProperties({"posts", "password", "friends","email", "lastName"})
     private User author;
-
-
-//    @JoinTable(
-//            name="post_category",
-//            joinColumns = {@JoinColumn(name = "post_id", nullable = false, updatable = false)},
-//            inverseJoinColumns = {@JoinColumn(name="category_id", nullable = false, updatable = false)},
-//            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
-//            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
-//    )
-
-
 }
