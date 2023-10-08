@@ -2,6 +2,7 @@ package com.example.stacks.service;
 
 import com.example.stacks.dto.UserDto;
 import com.example.stacks.dto.UserDto2;
+import com.example.stacks.interfaces.UserInterface;
 import com.example.stacks.payload.Signup;
 import com.example.stacks.entity.User;
 import com.example.stacks.exception.UserNotFoundException;
@@ -21,7 +22,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserInterface {
     private final UserRepository userRepository;
 
     @Autowired
@@ -31,6 +32,7 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
+    @Override
     public List<UserDto> fetchAllUsers() {
         List<User> users = userRepository.findAll();
         List<UserDto> userDTOs = new ArrayList<>();
@@ -47,9 +49,12 @@ public class UserService {
         return userDTOs;
     }
 
+    @Override
     public User fetchUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
+
+    @Override
     public ResponseEntity<?> createNewUser(Signup newUser) {
         Optional<User> userOptional = userRepository.findUserByEmail(newUser.getEmail());
 
@@ -67,32 +72,20 @@ public class UserService {
         user.setEmail(newUser.getEmail());
         user.setPassword(hashedPassword);
 
-
-//        String hashedPassword = passwordEncoder.encode(newUser.getPassword());
-//        newUser.setPassword(hashedPassword);
-
-//        userRepository.save(newUser);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("New user registered successfully"));
     }
 
+    @Override
     public ResponseEntity<?> authenticateUser(SignIn signInCredentials) {
         Optional<User> authenticatedUser = userRepository.findUserByEmail(signInCredentials.getEmail());
         User userExist = authenticatedUser.get();
-//        UserDto userDto = new UserDto(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(), userExist.getFriends());
-
-//        if (userExist.getPassword().equals(signInCredentials.getPassword()))
-//            return ResponseEntity.ok(userDto);
-//        if (bCryptPass)
 
         UserDto2 userDto2 = new UserDto2(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(), userExist.getFriends(), userExist.getPosts());
 
-
         if (verifyPassword(signInCredentials.getPassword(), userExist.getPassword()))
             return ResponseEntity.ok(userDto2);
-
-
 
         return ResponseEntity.badRequest().body(new MessageResponse("Bad credentials"));
     }
