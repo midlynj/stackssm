@@ -51,6 +51,27 @@ export const signUp = createAsyncThunk(
     }
 )
 
+export const signOut = createAsyncThunk(
+    "authenticated/signout",
+    async ({firstName, lastName, email, password}, thunkAPI) => {
+        console.log(firstName,lastName,email,password)
+        try {
+            const response = await axios.post(URL.REGISTER,{firstName, lastName, email, password});
+            // thunkAPI.dispatch
+            console.log(response.data.message)
+            // console.log(response.data)
+            thunkAPI.dispatch(setMessage(response.data.message))
+
+            return response.data;
+
+        } catch (error){
+            thunkAPI.dispatch(setMessage(error.response.data.message))
+            console.log(error.response.data.message)
+            return  thunkAPI.rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
 const mySlice = createSlice({
     name: 'authenticated',
     initialState,

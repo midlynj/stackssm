@@ -3,7 +3,6 @@ import "./postlist.css";
 import {useQuery} from "react-query";
 import URL from "./url"
 const PostList = () => {
-    const text = "Loading...";
     const fetchData = async () => {
         try {
             const response = await fetch(URL.FETCH_ALL_POSTS);
@@ -21,13 +20,14 @@ const PostList = () => {
 
     const { data, isLoading, isError } = useQuery("myData", fetchData);
 
-    const coloredLetters = text.split('').map((letter, index) => (
+    const loading = "Loading...";
+    const coloredLetters = loading.split("").map((letter, index) => (
         <span
             key={index}
-            className={index % 2 === 0 ? 'text-rose-500 text-4xl' : 'text-blue-500 text-5xl'}
+            className={index % 2 === 0 ? "text-rose-500 text-4xl" : "text-blue-500 text-5xl"}
         >
-      {letter}
-    </span>
+            {letter}
+        </span>
     ));
 
     if (isLoading)
