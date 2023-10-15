@@ -4,7 +4,7 @@ import com.example.stacks.dto.UserDto;
 import com.example.stacks.payload.Signup;
 import com.example.stacks.entity.User;
 import com.example.stacks.payload.SignIn;
-import com.example.stacks.service.UserService;
+import com.example.stacks.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping(value = "/api/users", headers = "Accept=application/json")
 public class UserController {
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @GetMapping("/all")
     public List<UserDto> fetchAllUsers() {

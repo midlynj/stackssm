@@ -13,5 +13,4 @@ public interface UserInterface {
     User fetchUserById(Long id);
     ResponseEntity<?> createNewUser(Signup newUser);
     ResponseEntity<?> authenticateUser(SignIn signInCredentials);
-
 }
