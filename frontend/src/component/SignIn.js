@@ -1,6 +1,6 @@
 import "./signup.css"
 import {Link} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {signIn} from "../redux/auth";
 import {useState} from "react";
 
