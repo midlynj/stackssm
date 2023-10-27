@@ -37,4 +37,15 @@ public class User {
     @JsonIgnoreProperties({"friends", "friendsList","createdAt", "posts","password"})
     @ToString.Exclude
     private List<User> friends;
+
+    @OneToOne
+    @JsonIgnoreProperties("image")
+    @JoinColumn(name = "image_id")
+
+    private Image image;
+
+//    @OneToMany
+//    @JsonIgnoreProperties("image")
+//    @JoinColumn(name = "image_id")
+//    private List<Image> image;
 }
