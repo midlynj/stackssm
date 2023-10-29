@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import React, {useCallback} from "react";
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import SignIn from "./component/SignIn";
@@ -11,6 +11,7 @@ import {useSelector, useDispatch} from "react-redux";
 import ProtectedRoute from "./misc/ProtectedRoute";
 import FriendProfile from "./component/FriendProfile";
 import {signOut} from "./redux/auth";
+import Upload from "./component/Upload";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.persistedReducer.isLoggedIn);
@@ -60,6 +61,10 @@ function App() {
                         Sign Up
                       </Link>
 
+                      <Link className="hover:text-violet-400" to={"/upload"}>
+                       Upload
+                      </Link>
+
                     </>
 
                 ) }
@@ -79,8 +84,12 @@ function App() {
               <Route element={<ProtectedRoute />}>
                 <Route path="/homefeed" element={<HomeFeed/>} />
               </Route>
-              {/*<Route path="/modal" element={<ModalT/>} />*/}
-              <Route path="/profile/:id" element={<FriendProfile/>}/>
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/profile/:id" element={<FriendProfile/>}/>
+              </Route>
+
+              <Route path="/upload" element={<Upload/>} />
               <Route path="*" element={<Error/>} />
 
 
