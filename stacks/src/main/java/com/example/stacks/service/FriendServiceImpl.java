@@ -50,8 +50,28 @@ public class FriendServiceImpl implements FriendInterface {
 
     @Override
     public void addAFriend(Long myId, Long friendId) {
-        friendRepository.addFriendFromUser(myId, friendId);
-        friendRepository.addFriendFromUser(friendId, myId);
+        Optional<User> userOptional = friendRepository.findById(myId);
+        Optional<User> friendUserOptional = friendRepository.findById(friendId);
+
+        if (userOptional.isEmpty() || friendUserOptional.isEmpty())
+            throw new RuntimeException("User does not exist");
+
+        User userExistMyId = userOptional.get();
+        User userExistFriendId = friendUserOptional.get();
+
+        if (userExistMyId.getFriends().contains(userExistFriendId))
+            throw new RuntimeException("User already added");
+
+        else {
+            friendRepository.addFriendFromUser(myId, friendId);
+            friendRepository.addFriendFromUser(friendId, myId);
+        }
+    }
+
+    @Override
+    public void removeAFriend(Long myId, Long friendId) {
+        friendRepository.deleteFriendFromUser(myId, friendId);
+        friendRepository.deleteFriendFromUser(friendId, myId);
     }
 
 }
