@@ -8,4 +8,5 @@ public interface FriendInterface {
     List<UserDto> fetchUserFriends();
     UserDto fetchUserFriendById(Long friendId);
     void addAFriend(Long myId, Long friendId);
+    void removeAFriend(Long myId, Long friendId);
 }
