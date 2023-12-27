@@ -8,8 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Blob;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -34,18 +37,20 @@ public class User {
     @JoinTable(name = "user_friends",
             joinColumns = { @JoinColumn(name = "user_id")},
             inverseJoinColumns={@JoinColumn(name="friend_id")})
-    @JsonIgnoreProperties({"friends", "friendsList","createdAt", "posts","password"})
+    @JsonIgnoreProperties({"friends", "friendsList","createdAt", "posts","password", "status", "roles"})
     @ToString.Exclude
     private List<User> friends;
 
-    @OneToOne
-    @JsonIgnoreProperties("image")
-    @JoinColumn(name = "image_id")
+    @Lob
+    @JsonIgnore
+    private Blob userPicture;
 
-    private Image image;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-//    @OneToMany
-//    @JsonIgnoreProperties("image")
-//    @JoinColumn(name = "image_id")
-//    private List<Image> image;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "user_roles",
+    joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 }
