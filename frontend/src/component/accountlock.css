@@ -1,0 +1,46 @@
+@keyframes flashing {
+    0% {
+        color: red;
+    }
+    50% {
+        color: black;
+    }
+    100% {
+        color: red;
+    }
+}
+
+@keyframes glowing {
+    0% {
+        text-shadow: 0 0 5px purple;
+    }
+    50% {
+        text-shadow: 0 0 10px purple;
+    }
+    100% {
+        text-shadow: 0 0 5px purple;
+    }
+}
+
+@keyframes diagonalMove {
+    0% {
+        transform: translateX(-100%) translateY(-100%);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%);
+    }
+}
+
+.locked-message {
+    font-size: 7em;
+    font-weight: bold;
+    animation: flashing 2s infinite, glowing 2s infinite, diagonalMove 5s infinite linear;
+    position: relative;
+    overflow: hidden;
+}
+
+.locked-message h1 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 5px solid purple;
+}
