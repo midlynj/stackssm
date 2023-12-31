@@ -1,11 +1,14 @@
 import "./signup.css"
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {signIn} from "../redux/auth";
 import {useState} from "react";
+import AccountLock from "./AccountLock";
 
 const SignIn = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const message = useSelector(state => state.message);
 
     const initialUser = {
         email: "",
@@ -25,13 +28,12 @@ const SignIn = () => {
         dispatch(signIn({ email, password }))
             .unwrap()
             .then(() => {
-                // setSuccessful(true);
+                navigate("/homefeed")
             })
             .catch(() => {
-                // setSuccessful(false);
+
             });
     };
-
 
     return (
         <>
@@ -42,15 +44,25 @@ const SignIn = () => {
                     <img
                         className="mx-auto  rounded-xl"
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZvcRQTKVSYvcbKzck7XWGSwjmbtiYgkoAED7ANkUiX0QDTez-B-90x2bwp-QrwvEU7-s&usqp=CAU"
-                        alt="avatar pic"
+                        alt="avatar"
                     />
-
                 </div>
+
                 <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" style={{
                     color: "#5a03e7"
                 }}>
                     Sign in to your account
                 </h2>
+                <span className="text-center text-red-800">
+
+                    {message === "Account is locked" ?
+                        <AccountLock/>
+                        :
+                        <span>
+                            {message}
+                        </span>
+                    }
+                </span>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form className="space-y-6">
@@ -107,7 +119,7 @@ const SignIn = () => {
                                 onClick={handleSignIn}
                                 className="flex w-full justify-center rounded-md bg-indigo-900 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Sign in
+                                    Sign in
                             </button>
                         </div>
                     </form>
@@ -116,12 +128,12 @@ const SignIn = () => {
                         Not a member?{' '}
                         <span className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
                             <Link to={"/signup"}>
-                            Join Now
-
+                                Join Now
                             </Link>
                         </span>
 
                     </p>
+
                 </div>
             </div>
         </>

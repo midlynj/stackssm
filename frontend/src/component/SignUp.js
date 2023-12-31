@@ -1,95 +1,51 @@
 import * as React from "react";
 import "./signup.css";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {signUp} from "../redux/auth";
-import {clearMessage} from "../redux/message";
 
 const SignUp = () => {
-    const [successful, setSuccessful] = useState(false);
-    // const [user, setUser] = useState(initialNewUser);
     const dispatch = useDispatch();
-
-    const {message} = useSelector((state) => state.message)
-    // useEffect(() => {
-    //     console.log("clear")
-    //     dispatch(clearMessage());
-    // }, [dispatch])
+    const message = useSelector((state) => state.message);
 
     const initialNewUser = {
         firstName: "",
         lastName: "",
         email: "",
         password: ""
-    }
+    };
     const [newUser, setNewUser] = useState(initialNewUser);
 
     const handleInputChange = event => {
         const {name, value} = event.target
-        setNewUser({...newUser, [name]: value})
+        setNewUser({...newUser, [name]: value});
     }
-
-    const close = () => {
-        setSuccessful(false);
-    }
-
 
     const handleRegister = async (e) => {
         e.preventDefault()
         const { firstName, lastName, email, password } = newUser;
-        // try {
-        //     const response = await axios.post(register, formValue)
-        //     console.log(response.data)
-        //
-        //     // setSuccessful(true);
-        //
-        //
-        // } catch (error) {
-        //     console.log(error)
-        //     setSuccessful(false);
-        // }
-
 
         dispatch(signUp({ firstName, lastName, email, password }))
             .unwrap()
             .then(() => {
-                // setSuccessful(true);
+                setNewUser(initialNewUser)
 
             })
             .catch(() => {
-                // setSuccessful(false);
+
             });
     };
 
     return (
-
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm profile-picture">
                 <img
                     className="mx-auto  rounded-xl"
                     src="https://static.vecteezy.com/system/resources/thumbnails/009/209/212/small/neon-glowing-profile-icon-3d-illustration-vector.jpg"
-                    alt="avatar pic"
+                    alt="avatar"
                 />
-
             </div>
-            {/*<div className="text-center" style={{*/}
-            {/*    backgroundColor: "Successful",*/}
-            {/*    color: "whitesmoke",*/}
 
-            {/*}}>*/}
-            {/*    {message}*/}
-            {/*</div>*/}
-            {/*{successful && (*/}
-            {/*        <div style={{*/}
-            {/*            backgroundColor: "green"*/}
-            {/*        }}>*/}
-            {/*            Success*/}
-
-            {/*            <button onClick={close}></button>*/}
-            {/*        </div>*/}
-
-            {/*)}*/}
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900" style={{
                 color: "#f8961d"
             }}>
@@ -101,11 +57,7 @@ const SignUp = () => {
 
                     <div>
                         <div className="flex items-center justify-between">
-                            <div className="" style={{
-                                backgroundColor: "Successful",
-                                color: "whitesmoke",
-
-                            }}>
+                            <div className="text-red-500">
                                 {message}
                             </div>
 
@@ -171,7 +123,6 @@ const SignUp = () => {
                                 id="password"
                                 name="password"
                                 type="password"
-                                // autoComplete="current-password"
                                 placeholder="Password"
                                 value={newUser.password}
                                 required
@@ -192,11 +143,8 @@ const SignUp = () => {
                     </div>
                 </form>
 
-
             </div>
         </div>
     );
-
-
 }
 export default SignUp;
