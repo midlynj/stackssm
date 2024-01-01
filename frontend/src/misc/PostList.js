@@ -2,39 +2,26 @@ import React from "react";
 import "./postlist.css";
 import {useQuery} from "react-query";
 import URL from "./url"
+import MISC from "./extra";
+import axios from "axios";
 const PostList = () => {
-    const fetchData = async () => {
+    const handleFetchAllPosts = async () => {
         try {
-            const response = await fetch(URL.FETCH_ALL_POSTS);
-            if (!response.ok) {
-                console.log(response)
-                throw new Error('Network response was not ok');
-            }
-            console.log(response)
-            return response.json();
+            const response = await axios.get(URL.FETCH_ALL_POSTS);
+            return response.data;
+
         } catch (error) {
-            console.log(error)
-            throw new Error('Error fetching data');
+            throw new Error(`Error fetching data: ${error.message}`);
         }
     };
 
-    const { data, isLoading, isError } = useQuery("myData", fetchData);
-
-    const loading = "Loading...";
-    const coloredLetters = loading.split("").map((letter, index) => (
-        <span
-            key={index}
-            className={index % 2 === 0 ? "text-rose-500 text-4xl" : "text-blue-500 text-5xl"}
-        >
-            {letter}
-        </span>
-    ));
+    const { data, isLoading, isError,error } = useQuery("fetchAllPosts", handleFetchAllPosts);
 
     if (isLoading)
-        return <div className="flex">{coloredLetters}</div>;
+        return <div className="flex">{MISC.coloredLoading}</div>;
 
     if (isError)
-        return <div className="text-rose-500 text-4xl">Error fetching data</div>;
+        return <div className="text-rose-500 text-4xl">Error fetching posts</div>;
 
     return (
         <div className="post-list">

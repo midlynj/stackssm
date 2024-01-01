@@ -1,12 +1,15 @@
-const REGISTER = "http://localhost:8080/api/users/create"
-const SIGN_IN = "http://localhost:8080/api/users/signin"
-const FETCH_ALL_POSTS = "http://localhost:8080/api/posts/all"
-const FETCH_POST_BY_ID = "http://localhost:8080/api/posts/"
+const  BASE_URL = process.env.REACT_APP_SERVER
+const SIGN_IN = `${BASE_URL}/api/users/signin`
+const SIGN_UP = `${BASE_URL}/api/users/create`
+const CREATE_NEW_POST = `${BASE_URL}/api/posts/`
+const FETCH_ALL_POSTS = `${BASE_URL}/api/posts/all`
+
 
 const URL = {
-    REGISTER,
+    BASE_URL,
     SIGN_IN,
-    FETCH_ALL_POSTS,
-    FETCH_POST_BY_ID
+    SIGN_UP,
+    CREATE_NEW_POST,
+    FETCH_ALL_POSTS
 };
 export default URL
