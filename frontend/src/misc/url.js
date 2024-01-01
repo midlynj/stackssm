@@ -1,8 +1,8 @@
 const  BASE_URL = process.env.REACT_APP_SERVER
-const SIGN_IN = `${BASE_URL}/api/users/signin`
-const SIGN_UP = `${BASE_URL}/api/users/create`
-const CREATE_NEW_POST = `${BASE_URL}/api/posts/`
-const FETCH_ALL_POSTS = `${BASE_URL}/api/posts/all`
+const SIGN_IN = `${BASE_URL}/users/signin`
+const SIGN_UP = `${BASE_URL}/users/create`
+const CREATE_NEW_POST = `${BASE_URL}/posts/`
+const FETCH_ALL_POSTS = `${BASE_URL}/posts/all`
 
 
 const URL = {
