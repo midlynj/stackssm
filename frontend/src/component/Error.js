@@ -1,4 +1,5 @@
 import "./error.css"
+
 const Error = () => {
 
     return (

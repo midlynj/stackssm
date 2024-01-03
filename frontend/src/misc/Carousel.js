@@ -9,7 +9,6 @@ const Carousel = () =>  {
     return (
         <Container className="py-4">
             <motion.div ref={carousel} className="carousel" whileTap={{cursor:"grabbing"}} >
-
                 <motion.div  drag="x"  dragConstraints={{
                     right: -500,
                     left: -1100
@@ -20,11 +19,11 @@ const Carousel = () =>  {
                         return(
 
                             <motion.div className="item" key={image}>
-
-                                <img src={image} alt="people carousel" style={{
+                                <img src={image}
+                                     alt="people carousel"
+                                     style={{
                                     boxShadow:"0 0 10px rgba(0, 0, 255, 0.5)"
                                 }}/>
-
                             </motion.div>
                         )
                     })}
