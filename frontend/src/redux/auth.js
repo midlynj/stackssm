@@ -6,50 +6,66 @@ import URL from "../misc/url";
 const initialState = {
     error: null,
     isLoggedIn: false,
-    user: {}
+    user: {},
+    role: []
 };
+
+export const addFriend = createAsyncThunk(
+    "authenticated/addFriend",
+    async ({userId, friendId}, thunkAPI) => {
+        try {
+            const response = await axios.post(`${URL.BASE_URL}/friends/add-friend/${userId}/${friendId}`);
+            return response.data;
+
+        } catch (error){
+            thunkAPI.dispatch(setMessage(error.response.data.message));
+            return  thunkAPI.rejectWithValue(error.response.data.message);
+        }
+    }
+);
+
+export const removeFriend = createAsyncThunk(
+    "authenticated/removeFriend",
+    async ({userId, friendId}, thunkAPI) => {
+        try {
+            const response = await axios.delete(`${URL.BASE_URL}/friends/remove-friend/${userId}/${friendId}`);
+            return response.data;
+
+        } catch (error){
+            thunkAPI.dispatch(setMessage(error.response.data.message));
+            return  thunkAPI.rejectWithValue(error.response.data.message);
+        }
+    }
+);
 
 export const signIn = createAsyncThunk(
     "authenticated/signin",
     async ({email, password}, thunkAPI) => {
-        console.log(email,password)
         try {
             const response = await axios.post(URL.SIGN_IN,{email, password});
-            console.log(response)
-
-            console.log(response.data)
-            return response.data
+            return response.data;
 
         } catch (error){
-            // thunkAPI.dispatch(setMessage(error.response.data.message))
-            console.log(error.response.data.message)
-            // return error.response.data.message
-            return  thunkAPI.rejectWithValue(error.response.data.message)
+            thunkAPI.dispatch(setMessage(error.response.data.message));
+            return  thunkAPI.rejectWithValue(error.response.data.message);
         }
     }
-)
-
+);
 
 export const signUp = createAsyncThunk(
     "authenticated/signup",
     async ({firstName, lastName, email, password}, thunkAPI) => {
-        console.log(firstName,lastName,email,password)
         try {
-            const response = await axios.post(URL.REGISTER,{firstName, lastName, email, password});
-            // thunkAPI.dispatch
-            console.log(response.data.message)
-            // console.log(response.data)
-            thunkAPI.dispatch(setMessage(response.data.message))
-
+            const response = await axios.post(URL.SIGN_UP,{firstName, lastName, email, password});
+            thunkAPI.dispatch(setMessage(response.data.message));
             return response.data;
 
         } catch (error){
-            thunkAPI.dispatch(setMessage(error.response.data.message))
-            console.log(error.response.data.message)
-            return  thunkAPI.rejectWithValue(error.response.data.message)
+            thunkAPI.dispatch(setMessage(error.response.data.message));
+            return  thunkAPI.rejectWithValue(error.response.data.message);
         }
     }
-)
+);
 
 export const signOut = createAsyncThunk(
     "authenticated/signout",
@@ -57,39 +73,47 @@ export const signOut = createAsyncThunk(
         await localStorage.clear();
     }
 
-)
+);
 
 const mySlice = createSlice({
     name: 'authenticated',
     initialState,
     reducers: {},
-    extraReducers: {
-        [signUp.fulfilled]: (state, action) => {
-            state.isLoggedIn = false;
-            state.error = false
-            state.user = {}
-        },
-        [signUp.rejected]: (state, action) => {
-            state.isLoggedIn = false;
-            state.error = true;
-            state.user = {}
-        },
-        [signIn.fulfilled]: (state, action) => {
-            state.isLoggedIn = true;
-            state.error = false;
-            state.user = action.payload;
-        },
-        [signIn.rejected]: (state, action) => {
-            state.isLoggedIn = false;
-            state.user = {};
-            state.error = true;
-        },
-        [signOut.fulfilled]: (state, action) => {
-            state.isLoggedIn = false;
-            state.user = {};
-            state.error = false;
-        },
+    extraReducers: (builder) => {
+        builder
+            .addCase(signIn.fulfilled, (state, action) => {
+                state.isLoggedIn = true;
+                state.error = false;
+                state.user = action.payload;
+                state.role = action.payload.role;
+            })
 
+            .addCase(signIn.rejected, (state, action) => {
+                state.error = true;
+            })
+
+            .addCase(signUp.fulfilled, (state, action) => {
+                state.error = false;
+            })
+
+            .addCase(signUp.rejected, (state, action) => {
+                state.error = true;
+            })
+
+            .addCase(signOut.fulfilled, (state, action) => {
+                state.isLoggedIn = false;
+                state.user = {};
+                state.error = false;
+                state.role = []
+            })
+
+            .addCase(addFriend.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
+
+            .addCase(removeFriend.fulfilled, (state, action) => {
+                state.user = action.payload;
+            });
 
     },
 });
