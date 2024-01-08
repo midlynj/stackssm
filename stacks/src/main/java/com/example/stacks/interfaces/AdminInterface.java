@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface AdminInterface {
     ResponseEntity<?> fetchAllUsers(AdminAccess adminEmail);
-    ResponseEntity<?> deleteUser(Long id);
-    ResponseEntity<?> restrictUser(Long id);
-    ResponseEntity<?> activateUser(Long id);
+    void deleteUser(Long id);
+    void restrictUser(Long id);
+    void activateUser(Long id);
 }

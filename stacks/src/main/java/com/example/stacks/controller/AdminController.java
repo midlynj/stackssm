@@ -19,18 +19,18 @@ public class AdminController {
     }
 
     @PutMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        return adminService.deleteUser(id);
+    public void deleteUser(@PathVariable Long id) {
+         adminService.deleteUser(id);
     }
 
     @PutMapping("/restrict/{id}")
-    public ResponseEntity<?> restrictUser(@PathVariable Long id) {
-      return adminService.restrictUser(id);
+    public void restrictUser(@PathVariable Long id) {
+       adminService.restrictUser(id);
     }
 
     @PutMapping("/activate/{id}")
-    public ResponseEntity<?> activateUser(@PathVariable Long id) {
-       return adminService.activateUser(id);
+    public void activateUser(@PathVariable Long id) {
+        adminService.activateUser(id);
     }
 
 }
