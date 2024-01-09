@@ -3,7 +3,6 @@ import React, {useCallback} from "react";
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import SignIn from "./component/SignIn";
 import SignUp from "./component/SignUp";
-import Error from "./component/Error";
 import Home from "./component/Home";
 import HomeFeed from "./component/HomeFeed";
 import Profile from "./component/Profile";
@@ -12,10 +11,16 @@ import ProtectedRoute from "./misc/ProtectedRoute";
 import FriendProfile from "./component/FriendProfile";
 import {signOut} from "./redux/auth";
 import Upload from "./component/Upload";
+import AdminDashBoard from "./component/AdminDashBoard";
+import UnAuthorized from "./component/UnAuthorized";
+import AdminPortal from "./misc/AdminPortal";
+import ProtectedRoute2 from "./misc/ProtectedRoute2";
+import NotFound from "./component/NotFound";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.persistedReducer.isLoggedIn);
-
+  const userRole = useSelector((state) => state.persistedReducer.role);
+  const isAdmin = userRole.some(user => user.name === "ADMIN");
   const dispatch = useDispatch();
 
   const logOut = useCallback(() => {
@@ -33,6 +38,18 @@ function App() {
             <Link className="hover:text-violet-400" to={"/"}>
               Home
             </Link>
+
+            {/*<Link className="hover:text-violet-400" to={"/upload"}>*/}
+            {/*  Upload*/}
+            {/*</Link>*/}
+
+            {isAdmin ?
+
+                <Link className="hover:text-violet-400" to={"/admin"}>
+                  Admin
+                </Link>
+                : null
+            }
 
             {isAuthenticated ?
             (  <>
@@ -61,9 +78,9 @@ function App() {
                         Sign Up
                       </Link>
 
-                      <Link className="hover:text-violet-400" to={"/upload"}>
-                       Upload
-                      </Link>
+                      {/*<Link className="hover:text-violet-400" to={"/upload"}>*/}
+                      {/* Upload*/}
+                      {/*</Link>*/}
 
                     </>
 
@@ -75,8 +92,7 @@ function App() {
           <div>
             <Routes>
               <Route path="/" element={<Home/>} />
-              <Route path="/signin" element={<SignIn/> } />
-              <Route path="/signup" element={<SignUp/>} />
+
               <Route element={<ProtectedRoute />}>
                 <Route path="/profile" element={<Profile/>} />
               </Route>
@@ -89,8 +105,22 @@ function App() {
                 <Route path="/profile/:id" element={<FriendProfile/>}/>
               </Route>
 
-              <Route path="/upload" element={<Upload/>} />
-              <Route path="*" element={<Error/>} />
+              <Route element={<ProtectedRoute2 />}>
+                <Route path="/signin" element={<SignIn/>}/>
+              </Route>
+
+              <Route element={<ProtectedRoute2 />}>
+                <Route path="/signup" element={<SignUp/>}/>
+              </Route>
+
+              <Route path="/unauth" element={<UnAuthorized/>} />
+
+              <Route element={<AdminPortal />}>
+                <Route path="/admin" element={<AdminDashBoard/>}/>
+              </Route>
+
+              {/*<Route path="/upload" element={<Upload/>} />*/}
+              <Route path="*" element={<NotFound/>} />
 
 
             </Routes>
