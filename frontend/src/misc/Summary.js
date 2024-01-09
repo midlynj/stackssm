@@ -1,6 +1,5 @@
 import React from "react";
 import "./summary.css";
-
 const Summary = () => {
     return (
         <div>
@@ -19,5 +18,4 @@ const Summary = () => {
         </div>
     );
 };
-
 export default Summary;

@@ -2,8 +2,9 @@ import React from "react";
 import "./postlist.css";
 import {useQuery} from "react-query";
 import URL from "./url"
-import MISC from "./extra";
 import axios from "axios";
+import Loading from "../component/Loading";
+import Error from "../component/Error";
 const PostList = () => {
     const handleFetchAllPosts = async () => {
         try {
@@ -15,13 +16,13 @@ const PostList = () => {
         }
     };
 
-    const { data, isLoading, isError,error } = useQuery("fetchAllPosts", handleFetchAllPosts);
+    const { data, isLoading, isError } = useQuery("fetchAllPosts", handleFetchAllPosts);
 
     if (isLoading)
-        return <div className="flex">{MISC.coloredLoading}</div>;
+        return <div><Loading/></div>;
 
     if (isError)
-        return <div className="text-rose-500 text-4xl">Error fetching posts</div>;
+        return <div><Error/></div>;
 
     return (
         <div className="post-list">
