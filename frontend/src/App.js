@@ -10,7 +10,6 @@ import {useSelector, useDispatch} from "react-redux";
 import ProtectedRoute from "./misc/ProtectedRoute";
 import FriendProfile from "./component/FriendProfile";
 import {signOut} from "./redux/auth";
-import Upload from "./component/Upload";
 import AdminDashBoard from "./component/AdminDashBoard";
 import UnAuthorized from "./component/UnAuthorized";
 import AdminPortal from "./misc/AdminPortal";
@@ -38,10 +37,6 @@ function App() {
             <Link className="hover:text-violet-400" to={"/"}>
               Home
             </Link>
-
-            {/*<Link className="hover:text-violet-400" to={"/upload"}>*/}
-            {/*  Upload*/}
-            {/*</Link>*/}
 
             {isAdmin ?
 
@@ -77,11 +72,6 @@ function App() {
                       <Link className="hover:text-violet-400" to={"/signup"}>
                         Sign Up
                       </Link>
-
-                      {/*<Link className="hover:text-violet-400" to={"/upload"}>*/}
-                      {/* Upload*/}
-                      {/*</Link>*/}
-
                     </>
 
                 ) }
@@ -119,7 +109,6 @@ function App() {
                 <Route path="/admin" element={<AdminDashBoard/>}/>
               </Route>
 
-              {/*<Route path="/upload" element={<Upload/>} />*/}
               <Route path="*" element={<NotFound/>} />
 
 
