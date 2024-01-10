@@ -4,9 +4,10 @@ import axios from "axios";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import "./profile.css"
-import MISC from "../misc/extra";
 import {addFriend} from "../redux/auth";
 import URL from "../misc/url";
+import Loading from "./Loading";
+import Error from "./Error";
 
 const FriendProfile = () => {
     const {id} = useParams();
@@ -24,10 +25,10 @@ const FriendProfile = () => {
     };
 
     if (isLoading)
-        return <div className="flex">{MISC.coloredLoading}</div>;
+        return <div><Loading/></div>;
 
     if (isError)
-        return <div className="text-rose-500 text-4xl">Error fetching data</div>;
+        return <div><Error/></div>;
 
     return (
         <div style={{
@@ -132,19 +133,6 @@ const FriendProfile = () => {
                             </div>
                         </div>
                         <div className="td" id="m-col">
-                            <div className="m-mrg" id="p-tabs">
-                                <div className="tb">
-                                    <div className="td">
-                                        <div className="tb" id="p-tabs-m">
-                                            <div className="td active"><i className="material-icons">8</i><span>Posts</span></div>
-                                            <div className="td"><i className="material-icons">Friends</i><span>1180</span></div>
-                                            <div className="td"><i className="material-icons">Photos</i><span>23</span></div>
-                                            <div className="td"><i className="material-icons">Followers</i><span>5471</span></div>
-                                            <div className="td"><i className="material-icons">Following</i><span>2564</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="m-mrg" id="composer" style={{
                                 visibility: "hidden"
                             }}>
@@ -220,6 +208,6 @@ const FriendProfile = () => {
             </main>
 
         </div>
-    )
+    );
 }
 export default FriendProfile;
