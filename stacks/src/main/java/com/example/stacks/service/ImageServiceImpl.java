@@ -8,7 +8,6 @@ import com.example.stacks.repository.ImageRepository;
 import com.example.stacks.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -44,15 +43,29 @@ public class ImageServiceImpl implements ImageInterface {
     }
 
     @Override
-    public ResponseEntity<?> uploadImage(MultipartFile file, Image image) throws SQLException, java.io.IOException {
+    public void uploadImage(MultipartFile file, Image image) throws SQLException, java.io.IOException {
         byte[] bytes = file.getBytes();
 
         Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
 
         image.setUserDefault(blob);
         imageRepository.save(image);
+    }
 
-        return new ResponseEntity<>(image, HttpStatus.OK);
+    @Override
+    public ResponseEntity<?> getImageById(Long imageId) throws SQLException {
+        Optional<Image> imageOptional = imageRepository.findById(imageId);
+
+        if (imageOptional.isEmpty())
+            return ResponseEntity.ok(new MessageResponse("No image with id " + imageId ));
+
+        Image defaultImage = imageOptional.get();
+
+        Blob defaultImageUserDefault = defaultImage.getUserDefault();
+
+        byte[] imageBytes2 = defaultImageUserDefault.getBytes(1, (int) defaultImageUserDefault.length());
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes2);
     }
 
     @Override
@@ -74,25 +87,18 @@ public class ImageServiceImpl implements ImageInterface {
 
         boolean areImagesEqual = areBytesEqual(imageBytes1, imageBytes2);
 
-        if (!areImagesEqual) {
-            System.out.println("user picture");
-
+        if (!areImagesEqual)
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes1);
 
-        } else {
-            System.out.println("default picture");
-
-            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes2);
-        }
-
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imageBytes2);
     }
 
     @Override
-    public ResponseEntity<?> updateImage(MultipartFile file, @PathVariable Long userId) throws SQLException, java.io.IOException {
+    public void updateImage(MultipartFile file, @PathVariable Long userId) throws SQLException, java.io.IOException {
         Optional<User> userOptional = userRepository.findById(userId);
 
         if (userOptional.isEmpty())
-            return ResponseEntity.ok(new MessageResponse("User does not exist"));
+            throw new RuntimeException("User does not exist");
 
         User user = userOptional.get();
 
@@ -101,7 +107,5 @@ public class ImageServiceImpl implements ImageInterface {
 
         user.setUserPicture(blob);
         userRepository.save(user);
-
-        return ResponseEntity.ok("Success");
     }
 }

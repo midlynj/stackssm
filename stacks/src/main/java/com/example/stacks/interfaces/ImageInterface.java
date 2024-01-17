@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface ImageInterface {
-    ResponseEntity<?> uploadImage(MultipartFile file, Image image) throws SQLException, IOException;
+    void uploadImage(MultipartFile file, Image image) throws SQLException, IOException;
     ResponseEntity<?> displayImage(Long userId) throws SQLException;
-    ResponseEntity<?> updateImage(MultipartFile file, @PathVariable Long userId) throws SQLException, IOException;
+    ResponseEntity<?> getImageById(Long imageId) throws SQLException;
+    void updateImage(MultipartFile file, @PathVariable Long userId) throws SQLException, IOException;
 }
