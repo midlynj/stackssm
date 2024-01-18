@@ -3,6 +3,7 @@ package com.example.stacks.controller;
 import com.example.stacks.dto.UserDto;
 import com.example.stacks.service.FriendServiceImpl;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +26,12 @@ public class FriendController {
     }
 
     @PostMapping("add-friend/{myId}/{friendId}")
-    public void addFriend(@PathVariable long myId, @PathVariable long friendId) {
-        friendService.addAFriend(myId, friendId);
+    public ResponseEntity<?> addFriend(@PathVariable long myId, @PathVariable long friendId) {
+       return friendService.addAFriend(myId, friendId);
+    }
+
+    @DeleteMapping("remove-friend/{myId}/{friendId}")
+    public ResponseEntity<?> removeFriend(@PathVariable long myId, @PathVariable long friendId) {
+        return friendService.removeAFriend(myId, friendId);
     }
 }
