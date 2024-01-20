@@ -2,13 +2,11 @@ package com.example.stacks.controller;
 
 import com.example.stacks.dto.PostDto;
 import com.example.stacks.entity.Post;
-import com.example.stacks.payload.UpdatePost;
 import com.example.stacks.service.PostServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -23,7 +21,7 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Post> fetchPostById(@PathVariable Long id) {
+    public Post fetchPostById(@PathVariable Long id) {
         return postService.fetchPostById(id);
     }
 
@@ -32,8 +30,4 @@ public class PostController {
         postService.createPost(id, postDto);
     }
 
-    @PutMapping("{id}")
-    public void updatePost(@PathVariable long id, @RequestBody UpdatePost updatePost) {
-        postService.updatePost(id, updatePost);
-    }
 }
