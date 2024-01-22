@@ -2,14 +2,14 @@ package com.example.stacks.service;
 
 import com.example.stacks.dto.UserDto;
 import com.example.stacks.dto.UserDto2;
-import com.example.stacks.entity.Image;
+import com.example.stacks.entity.*;
 import com.example.stacks.interfaces.UserInterface;
 import com.example.stacks.payload.Signup;
-import com.example.stacks.entity.User;
 import com.example.stacks.exception.UserNotFoundException;
 import com.example.stacks.payload.MessageResponse;
 import com.example.stacks.payload.SignIn;
 import com.example.stacks.repository.ImageRepository;
+import com.example.stacks.repository.RoleRepository;
 import com.example.stacks.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import java.util.*;
 public class UserServiceImpl implements UserInterface {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -76,6 +77,28 @@ public class UserServiceImpl implements UserInterface {
         user.setEmail(newUser.getEmail());
         user.setPassword(hashedPassword);
         user.setUserPicture(defaultImage.getUserDefault());
+
+        Set<String> strRoles = newUser.getRole();
+        Set<Role> roles = new HashSet<>();
+
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.USER).orElseThrow(() -> new RuntimeException("Error: Role not found"));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                if (role.equals("ADMIN")) {
+                    Role adminRole = roleRepository.findByName(ERole.ADMIN).orElseThrow(() -> new RuntimeException("Error: Role not found"));
+                    roles.add(adminRole);
+                } else {
+                    Role userRole = roleRepository.findByName(ERole.USER).orElseThrow(() -> new RuntimeException("Error: Role not found "));
+                    roles.add(userRole);
+                }
+
+            });
+        }
+
+        user.setRoles(roles);
+        user.setStatus(Status.ACTIVE);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("New user registered successfully"));
@@ -84,13 +107,20 @@ public class UserServiceImpl implements UserInterface {
     @Override
     public ResponseEntity<?> authenticateUser(SignIn signInCredentials) {
         Optional<User> userOptional = userRepository.findUserByEmail(signInCredentials.getEmail());
+
+        if (userOptional.isEmpty())
+            throw new RuntimeException("User does not exist");
+
         User userExist = userOptional.get();
 
-        UserDto2 userDto2 = new UserDto2(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(), userExist.getFriends(), userExist.getPosts());
+        if (userExist.getStatus().equals(Status.INACTIVE))
+            return ResponseEntity.badRequest().body(new MessageResponse("Account is locked"));
 
-        if (verifyPassword(signInCredentials.getPassword(), userExist.getPassword()))
-            return ResponseEntity.ok(userDto2);
+        if (!verifyPassword(signInCredentials.getPassword(), userExist.getPassword()))
+            return ResponseEntity.badRequest().body(new MessageResponse("Bad credentials"));
 
-        return ResponseEntity.badRequest().body(new MessageResponse("Bad credentials"));
+        UserDto2 userDto = new UserDto2(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(),userExist.getRoles(), userExist.getFriends(), userExist.getPosts());
+
+        return ResponseEntity.ok(userDto);
     }
 }
