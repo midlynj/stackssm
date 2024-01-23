@@ -1,13 +1,11 @@
-import "./error.css"
+import "./notfound.css"
 
-const Error = () => {
-
+const NotFound = () => {
     return (
         <div className="not-found">
             <h1 id="error">404</h1>
             <p className="gradient">Page Not Found</p>
         </div>
     );
-
 }
-export default Error;
+export default NotFound;
