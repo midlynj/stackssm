@@ -1,0 +1,37 @@
+body {
+
+    font-family: "Roboto", sans-serif;
+}
+
+.wrapper {
+    width: 800px;
+    min-width: 600px;
+    margin: 0 auto;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(59, 217, 203, 0.96);
+}
+
+
+
+table th {
+    height: 30px;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 10px;
+    color: #1fd387;
+}
+
+table td {
+    padding: 10px;
+}
+
+.rowItem {
+    width: 100%;
+    background: #222;
+}
+
+.main_table {
+    width: 100%;
+    padding: 25px;
+    background: #111;
+}
