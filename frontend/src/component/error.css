@@ -1,0 +1,40 @@
+.cyberpunk-error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: #ff2400;
+}
+
+.error-message {
+    text-align: center;
+}
+
+.error-message span {
+    font-size: 72px;
+    font-weight: bold;
+    animation: neonGlow 1s infinite alternate;
+}
+
+.error-message p {
+    font-size: 24px;
+    animation: flicker 0.5s infinite alternate;
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes neonGlow {
+    0% {
+        text-shadow: 0 0 10px #ff2400, 0 0 20px #ff2400, 0 0 30px #ff2400;
+    }
+    100% {
+        text-shadow: 0 0 5px #ff2400, 0 0 10px #ff2400, 0 0 15px #ff2400;
+    }
+}
