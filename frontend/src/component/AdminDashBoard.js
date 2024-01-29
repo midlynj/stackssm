@@ -32,12 +32,10 @@ const AdminDashBoard = () => {
         },
         {
             onSuccess: response => {
-                console.log("Successfully deleted user");
-
                 queryClient.invalidateQueries("fetchUsers");
             },
             onError: error => {
-                console.log("Error deleting user")
+
             }
         }
     );
@@ -55,13 +53,11 @@ const AdminDashBoard = () => {
         },
         {
             onSuccess: response => {
-                console.log("Successfully activated user");
-
                 queryClient.invalidateQueries("fetchUsers");
 
             },
             onError: error => {
-                console.log("Error activating user");
+
             }
         }
     );
@@ -79,13 +75,11 @@ const AdminDashBoard = () => {
         },
         {
             onSuccess: response => {
-                console.log("Successfully restricted user");
-
                 queryClient.invalidateQueries("fetchUsers");
 
             },
             onError: error => {
-                console.log("Error restricting user");
+
             }
         }
     );
