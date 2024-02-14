@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserInterface {
     private final ImageRepository imageRepository;
     private final RoleRepository roleRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -74,15 +75,17 @@ public class UserServiceImpl implements UserInterface {
         Image defaultImage = imageOptional.get();
 
         if (!patternMatches(newUser.getEmail(), "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-
+            LOGGER.error("Invalid email format: User creation failed");
             return ResponseEntity.badRequest().body(new MessageResponse("Invalid email format"));
         }
 
         if (userOptional.isPresent()) {
+            LOGGER.error("Duplicated email: User creation failed");
             return ResponseEntity.badRequest().body(new MessageResponse("Email is already in use"));
         }
 
         if (newUser.getPassword().length() <= 2) {
+            LOGGER.error("Password does not meet requirements: User creation failed");
             return ResponseEntity.badRequest().body(new MessageResponse("Password must be minimum 3 characters"));
         }
 
@@ -118,7 +121,7 @@ public class UserServiceImpl implements UserInterface {
         user.setStatus(Status.ACTIVE);
         userRepository.save(user);
 
-
+        LOGGER.info("New user successfully created");
 
         return ResponseEntity.ok(new MessageResponse("New user registered successfully"));
     }
@@ -128,21 +131,25 @@ public class UserServiceImpl implements UserInterface {
         Optional<User> userOptional = userRepository.findUserByEmail(signInCredentials.getEmail());
 
         if (userOptional.isEmpty()) {
+            LOGGER.error("User not found");
             throw new RuntimeException("User does not exist");
         }
 
         User userExist = userOptional.get();
 
         if (userExist.getStatus().equals(Status.INACTIVE)) {
+            LOGGER.error("User account locked: Sign in failed");
             return ResponseEntity.badRequest().body(new MessageResponse("Account is locked"));
         }
 
         if (!verifyPassword(signInCredentials.getPassword(), userExist.getPassword())) {
+            LOGGER.error("Bad credentials: Sign in failed");
             return ResponseEntity.badRequest().body(new MessageResponse("Bad credentials"));
         }
 
         UserDto2 userDto = new UserDto2(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(),userExist.getRoles(), userExist.getFriends(), userExist.getPosts());
 
+        LOGGER.info("User successfully signed in");
 
         return ResponseEntity.ok(userDto);
     }

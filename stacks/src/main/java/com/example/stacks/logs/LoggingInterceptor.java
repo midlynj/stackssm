@@ -11,17 +11,17 @@ import java.time.format.DateTimeFormatter;
 
 public class LoggingInterceptor implements HandlerInterceptor {
 
-    private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("Request URL: {} {} - Timestamp: {}", request.getMethod(), request.getRequestURI(), getCurrentTimestamp());
+        LOGGER.info("Request URL: {} {} - Timestamp: {}", request.getMethod(), request.getRequestURI(), getCurrentTimestamp());
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        logger.info("Response Status: {} - Timestamp: {}", response.getStatus(), getCurrentTimestamp());
+        LOGGER.info("Response Status: {} - Timestamp: {}", response.getStatus(), getCurrentTimestamp());
     }
 
     private String getCurrentTimestamp() {
