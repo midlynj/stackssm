@@ -8,6 +8,8 @@ import com.example.stacks.interfaces.PostInterface;
 import com.example.stacks.repository.PostRepository;
 import com.example.stacks.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class PostServiceImpl implements PostInterface {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
+
     @Override
     public List<Post> fetchAllPosts() {
         return postRepository.findAll();
@@ -28,8 +32,10 @@ public class PostServiceImpl implements PostInterface {
     public Post fetchPostById(Long id) {
         Optional<Post> optionalPost = postRepository.findById(id);
 
-        if (optionalPost.isEmpty())
+        if (optionalPost.isEmpty()) {
+            LOGGER.error("Post not found");
             throw new RuntimeException("No post with id " + id);
+        }
 
         return optionalPost.get();
     }
@@ -39,13 +45,17 @@ public class PostServiceImpl implements PostInterface {
         User author = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        if (postDto.getContent().isEmpty())
+        if (postDto.getContent().isEmpty()) {
+            LOGGER.error("Post Creation Failed: Post is empty");
             throw new RuntimeException("Post cannot be empty");
+        }
 
         Post post = new Post();
         post.setContent(postDto.getContent());
         post.setAuthor(author);
         post.setCreatedAt(postDto.getCreatedAt());
+
+        LOGGER.info("New post created");
 
         postRepository.save(post);
     }
