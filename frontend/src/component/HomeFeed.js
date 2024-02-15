@@ -94,12 +94,10 @@ const HomeFeed = () => {
                                         <div className="td profile-pic" id="p-c-i"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYZxm98EmwJ1v1onwGLXl6sNqt857dqUmEOw&usqp=CAU" alt="Profile pic"/></div>
                                         <div className="td" id="c-inp">
                                             <input type="text" placeholder="What's on your mind?"
-                                                   // onClick={openDialog}
                                                 onClick={openModal}
                                             />
 
                                             <Modal isOpen={isModalOpen} onClose={closeModal}>
-                                                {/*<input type="text"/>*/}
                                                 <h2 className="text-center text-indigo-800">Status</h2>
                                                 <input type="text" onChange={(e) => setPost(e.target.value)} style={{
                                                     width: "250px",
