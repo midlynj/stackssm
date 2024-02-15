@@ -7,6 +7,8 @@ import com.example.stacks.entity.User;
 import com.example.stacks.interfaces.FriendInterface;
 import com.example.stacks.repository.FriendRepository;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class FriendServiceImpl implements FriendInterface {
     private final FriendRepository friendRepository;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FriendServiceImpl.class);
 
     @Override
     public List<UserDto> fetchUserFriends() {
@@ -55,8 +59,10 @@ public class FriendServiceImpl implements FriendInterface {
     public UserDto fetchUserFriendById(Long friendId) {
         Optional<User> optionalUser = friendRepository.findById(friendId);
 
-        if (optionalUser.isEmpty())
+        if (optionalUser.isEmpty()) {
+            LOGGER.error("User not found");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User " + friendId + " not found");
+        }
 
         User user = optionalUser.get();
 
@@ -68,14 +74,18 @@ public class FriendServiceImpl implements FriendInterface {
         Optional<User> userOptional = friendRepository.findById(myId);
         Optional<User> friendOptional = friendRepository.findById(friendId);
 
-        if (userOptional.isEmpty() || friendOptional.isEmpty())
+        if (userOptional.isEmpty() || friendOptional.isEmpty()) {
+            LOGGER.error("User not found");
             throw new RuntimeException("User does not exist");
+        }
 
         User userExist = userOptional.get();
         User friendExist = friendOptional.get();
 
-        if (userExist.getFriends().contains(friendExist))
+        if (userExist.getFriends().contains(friendExist)) {
+            LOGGER.error("Add Friend Failed: Users already friends");
             throw new RuntimeException("User: " + userExist.getFirstName() + " " + userExist.getLastName() + " is already friends with " + friendExist.getFirstName() + " " + friendExist.getLastName());
+        }
 
         List<FriendDto> friendDtoList = new ArrayList<>();
 
@@ -103,6 +113,8 @@ public class FriendServiceImpl implements FriendInterface {
         friendRepository.addFriendFromUser(friendId, myId);
         userDto.setFriends(friendDtoList);
 
+        LOGGER.info("Friend successfully added");
+
         return ResponseEntity.ok(userDto);
 
     }
@@ -112,14 +124,18 @@ public class FriendServiceImpl implements FriendInterface {
         Optional<User> userOptional = friendRepository.findById(myId);
         Optional<User> friendOptional = friendRepository.findById(friendId);
 
-        if (userOptional.isEmpty()|| friendOptional.isEmpty())
+        if (userOptional.isEmpty()|| friendOptional.isEmpty()) {
+            LOGGER.error("User not found");
             throw new RuntimeException("User does not exist");
+        }
 
         User user = userOptional.get();
         User friendUser = friendOptional.get();
 
-        if (!user.getFriends().contains(friendUser))
+        if (!user.getFriends().contains(friendUser)) {
+            LOGGER.error("Removed Friend Failed: Users are not friends");
             throw new RuntimeException("User: " + user.getFirstName() + " " + user.getLastName() + " " + "is not friends with " + friendUser.getFirstName() + " " + friendUser.getLastName());
+        }
 
         List<FriendDto> friendDtoList = new ArrayList<>();
 
@@ -147,6 +163,8 @@ public class FriendServiceImpl implements FriendInterface {
         friendRepository.deleteFriendFromUser(myId, friendId);
         friendRepository.deleteFriendFromUser(friendId, myId);
         userDto.setFriends(friendDtoList);
+
+        LOGGER.info("Friend successfully removed");
 
         return ResponseEntity.ok(userDto);
     }
