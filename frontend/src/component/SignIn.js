@@ -13,22 +13,22 @@ const SignIn = () => {
     const initialUser = {
         email: "",
         password: ""
-    }
+    };
     const [userSignIn, setUserSignIn] = useState(initialUser);
 
     const handleInputChange = event => {
-        const {name, value} = event.target
-        setUserSignIn({...userSignIn, [name]: value})
-    }
+        const {name, value} = event.target;
+        setUserSignIn({...userSignIn, [name]: value});
+    };
 
     const handleSignIn = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const {  email, password } = userSignIn;
 
         dispatch(signIn({ email, password }))
             .unwrap()
             .then(() => {
-                navigate("/homefeed")
+                navigate("/homefeed");
             })
             .catch(() => {
 
@@ -65,7 +65,9 @@ const SignIn = () => {
                 </span>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-6">
+                    <form className="space-y-6"
+                          // onSubmit={handleSignIn}
+                    >
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900" style={{
                                 color: "whitesmoke"

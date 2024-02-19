@@ -19,16 +19,16 @@ const SignUp = () => {
     const handleInputChange = event => {
         const {name, value} = event.target
         setNewUser({...newUser, [name]: value});
-    }
+    };
 
     const handleRegister = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const { firstName, lastName, email, password } = newUser;
 
         dispatch(signUp({ firstName, lastName, email, password }))
             .unwrap()
             .then(() => {
-                setNewUser(initialNewUser)
+                setNewUser(initialNewUser);
 
             })
             .catch(() => {
