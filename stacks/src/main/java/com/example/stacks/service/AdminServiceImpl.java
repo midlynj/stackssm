@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -49,21 +50,17 @@ public class AdminServiceImpl implements AdminInterface {
 
        Set<User> nonAdminUsers = userRepository.findUsersByRolesName(ERole.USER);
 
-       List<UserDto3> userDto3List = new ArrayList<>();
+       LOGGER.info("Fetched all users");
 
-       for (User user: nonAdminUsers) {
+        return ResponseEntity.ok( nonAdminUsers.stream().map(user -> {
             UserDto3 userDto3 = new UserDto3();
             userDto3.setId(user.getId());
             userDto3.setFirstName(user.getFirstName());
             userDto3.setLastName(user.getLastName());
             userDto3.setEmail(user.getEmail());
             userDto3.setStatus(user.getStatus());
-            userDto3List.add(userDto3);
-        }
-
-       LOGGER.info("Fetched all users");
-
-        return ResponseEntity.ok(userDto3List);
+            return userDto3;
+        })    .collect(Collectors.toList()));
    }
 
     @Override

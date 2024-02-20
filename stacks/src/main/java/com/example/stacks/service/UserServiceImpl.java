@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -48,18 +49,16 @@ public class UserServiceImpl implements UserInterface {
     @Override
     public List<UserDto> fetchAllUsers() {
         List<User> users = userRepository.findAll();
-        List<UserDto> userDTOs = new ArrayList<>();
 
-        for (User user : users) {
+        return users.stream().map(user -> {
             UserDto userDTO = new UserDto();
             userDTO.setId(user.getId());
             userDTO.setFirstName(user.getFirstName());
             userDTO.setEmail(user.getEmail());
             userDTO.setLastName(user.getLastName());
             userDTO.setFriends(user.getFriends());
-            userDTOs.add(userDTO);
-        }
-        return userDTOs;
+            return userDTO;
+        })    .collect(Collectors.toList());
     }
 
     @Override
