@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -76,7 +77,7 @@ public class FriendServiceImpl implements FriendInterface {
 
         if (userOptional.isEmpty() || friendOptional.isEmpty()) {
             LOGGER.error("User not found");
-            throw new RuntimeException("User does not exist");
+            throw new RuntimeException("User not found");
         }
 
         User userExist = userOptional.get();
@@ -87,16 +88,16 @@ public class FriendServiceImpl implements FriendInterface {
             throw new RuntimeException("User: " + userExist.getFirstName() + " " + userExist.getLastName() + " is already friends with " + friendExist.getFirstName() + " " + friendExist.getLastName());
         }
 
-        List<FriendDto> friendDtoList = new ArrayList<>();
-
-        for (User user : userExist.getFriends()) {
-            FriendDto friendDto = new FriendDto();
-            friendDto.setId(user.getId());
-            friendDto.setFirstName(user.getFirstName());
-            friendDto.setEmail(user.getEmail());
-            friendDto.setLastName(user.getLastName());
-            friendDtoList.add(friendDto);
-        }
+        List<FriendDto> friendDtoList = userExist.getFriends().stream()
+                .map(user -> {
+                    FriendDto friendDto = new FriendDto();
+                    friendDto.setId(user.getId());
+                    friendDto.setFirstName(user.getFirstName());
+                    friendDto.setEmail(user.getEmail());
+                    friendDto.setLastName(user.getLastName());
+                    return friendDto;
+                })
+                .collect(Collectors.toList());
 
         FriendDto friendDto = new FriendDto(friendExist.getId(), friendExist.getFirstName(), friendExist.getLastName(), friendExist.getEmail());
 
@@ -137,16 +138,14 @@ public class FriendServiceImpl implements FriendInterface {
             throw new RuntimeException("User: " + user.getFirstName() + " " + user.getLastName() + " " + "is not friends with " + friendUser.getFirstName() + " " + friendUser.getLastName());
         }
 
-        List<FriendDto> friendDtoList = new ArrayList<>();
-
-        for (User user1 : user.getFriends()) {
+        List<FriendDto> friendDtoList = user.getFriends().stream().map(user1 -> {
             FriendDto friendDto = new FriendDto();
             friendDto.setId(user1.getId());
             friendDto.setFirstName(user1.getFirstName());
             friendDto.setEmail(user1.getEmail());
             friendDto.setLastName(user1.getLastName());
-            friendDtoList.add(friendDto);
-        }
+            return friendDto;
+        }).collect(Collectors.toList());
 
         FriendDto friendDto = new FriendDto(friendUser.getId(), friendUser.getFirstName(), friendUser.getLastName(), friendUser.getEmail());
 
