@@ -1,5 +1,6 @@
 package com.example.stacks.controller;
 
+import com.example.stacks.dto.FriendDto;
 import com.example.stacks.dto.UserDto;
 import com.example.stacks.payload.Signup;
 import com.example.stacks.entity.User;

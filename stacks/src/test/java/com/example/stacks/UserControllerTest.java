@@ -2,6 +2,7 @@ package com.example.stacks;
 
 import com.example.stacks.entity.*;
 import com.example.stacks.payload.MessageResponse;
+import com.example.stacks.payload.Signup;
 import com.example.stacks.repository.ImageRepository;
 import com.example.stacks.repository.RoleRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -59,10 +60,19 @@ public class UserControllerTest {
 //        Role userRole = roleRepository.findByName(ERole.USER).orElseThrow(() -> new RuntimeException("Error: Role not found"));
 //        roles.add(userRole);
 //        roles.add(USER);
-        User newUser = new User(1L,"Joey","Stack","j@gmail.com","123",posts,userList,null, Status.ACTIVE, null);
+//        User newUser = new User(1L,"Joey","Stack","j@gmail.com","123",posts,userList,null, Status.ACTIVE, null);
+        Signup newUser = new Signup("joe","st","joe@gmail.com","123",null);
         MessageResponse response = restTemplate.postForObject(baseUrl,newUser, MessageResponse.class);
-        assertEquals("New user registered successfully", response);
-//        assertEquals(1, h2Repository.findAll().size());
+//        assertEquals("New user registered successfully", response);
+        assertEquals(1, h2Repository.findAll().size());
     }
+
+//    @Test
+//    public void userList() {
+//        User newUser = new User(1L,"Joey","Stack","j@gmail.com","123",posts,userList,null, Status.ACTIVE, null);
+//        User response = restTemplate.getForObject(baseUrl,newUser,User.class);
+//    }
+
+
 
 }
