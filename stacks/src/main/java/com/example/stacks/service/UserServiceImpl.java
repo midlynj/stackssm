@@ -46,6 +46,10 @@ public class UserServiceImpl implements UserInterface {
                 .matches();
     }
 
+    public String greet() {
+        return "Hello, World";
+    }
+
     @Override
     public List<UserDto> fetchAllUsers() {
         List<User> users = userRepository.findAll();
@@ -71,6 +75,10 @@ public class UserServiceImpl implements UserInterface {
         Optional<User> userOptional = userRepository.findUserByEmail(newUser.getEmail());
 
         Optional<Image> imageOptional = imageRepository.findById(1L);
+        if (imageOptional.isEmpty())
+            return null;
+
+//            LOGGER.error("no image");
         Image defaultImage = imageOptional.get();
 
         if (!patternMatches(newUser.getEmail(), "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {

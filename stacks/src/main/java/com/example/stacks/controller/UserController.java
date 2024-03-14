@@ -19,6 +19,12 @@ import java.util.List;
 public class UserController {
     private final UserServiceImpl userService;
 
+    @GetMapping("/")
+    public  String greeting() {
+        return userService.greet();
+    }
+
+
     @GetMapping("/all")
     public List<UserDto> fetchAllUsers() {
         return userService.fetchAllUsers();
