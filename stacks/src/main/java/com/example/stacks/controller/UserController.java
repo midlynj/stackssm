@@ -1,5 +1,6 @@
 package com.example.stacks.controller;
 
+import com.example.stacks.dto.FriendDto;
 import com.example.stacks.dto.UserDto;
 import com.example.stacks.payload.Signup;
 import com.example.stacks.entity.User;
@@ -17,6 +18,12 @@ import java.util.List;
 @RequestMapping(value = "/api/users", headers = "Accept=application/json")
 public class UserController {
     private final UserServiceImpl userService;
+
+    @GetMapping("/")
+    public  String greeting() {
+        return userService.greet();
+    }
+
 
     @GetMapping("/all")
     public List<UserDto> fetchAllUsers() {
