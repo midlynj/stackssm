@@ -19,7 +19,7 @@ import java.util.List;
 public class UserController {
     private final UserServiceImpl userService;
 
-    @GetMapping("/")
+    @GetMapping()
     public  String greeting() {
         return userService.greet();
     }

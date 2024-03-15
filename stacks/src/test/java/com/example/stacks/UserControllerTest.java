@@ -1,6 +1,9 @@
 package com.example.stacks;
 
 import com.example.stacks.dto.UserDto;
+import com.example.stacks.entity.User;
+import com.example.stacks.payload.MessageResponse;
+import com.example.stacks.payload.Signup;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,10 +15,14 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
@@ -42,7 +49,7 @@ public class UserControllerTest {
     @Test
     void greetingShouldReturnDefaultMessage() throws Exception {
 //        integration test
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/users/",
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/users",
                 String.class)).isEqualTo("Hello, World");
     }
 
