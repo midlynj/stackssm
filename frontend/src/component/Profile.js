@@ -229,7 +229,20 @@ const Profile = () => {
                             </div>
 
                             <div id="t-box">
-                                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a>  <a href="#">Cookies</a> <span id="t-more">More</span>
+                                <a
+                                    // href="#"
+                                >
+                                    Privacy</a>
+                                <a
+                                    // href="#"
+                                >Terms</a>
+                                <a
+                                    // href="#"
+                                >Advertising</a>
+                                <a
+                                    // href="#"
+                                >Cookies</a>
+                                <span id="t-more">More</span>
                                 <div id="cpy-nt">Stacks Of Laughs &copy; <span id="curr-year"></span></div>
                             </div>
                         </div>

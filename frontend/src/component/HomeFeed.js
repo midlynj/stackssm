@@ -139,12 +139,17 @@ const HomeFeed = () => {
                                     <div className="tb" style={{
                                         marginTop: "10px"
                                     }}>
-                                        <a href="#" className="td p-p-pic"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYZxm98EmwJ1v1onwGLXl6sNqt857dqUmEOw&usqp=CAU" alt="profile pic"/></a>
+                                        <a
+                                            // href="#"
+                                           className="td p-p-pic">
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYZxm98EmwJ1v1onwGLXl6sNqt857dqUmEOw&usqp=CAU" alt="profile pic"/></a>
                                         <div className="td p-r-hdr">
                                             <div className="p-u-info" style={{
                                                 color:"#a8a8a8"
                                             }}>
-                                                <a href="#" style={{
+                                                <a
+                                                    // href="#"
+                                                    style={{
                                                     color:"#f1861b"
                                                 }}>Joey Stacks</a> shared a picture
                                             </div>
