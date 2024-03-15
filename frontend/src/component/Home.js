@@ -43,7 +43,7 @@ const Home = () => {
                         <li>Terms of use</li>
                         <li>Trademarks</li>
                         <li>About our CEO</li>
-                        <li><a href="#">&copy; Stacks Of Laughs 2023</a></li>
+                        {/*<li><a href="#">&copy; Stacks Of Laughs 2023</a></li>*/}
                     </ul>
                 </div>
             </footer>
