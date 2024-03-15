@@ -7,13 +7,17 @@ import com.example.stacks.entity.Status;
 import com.example.stacks.entity.User;
 import com.example.stacks.payload.SignIn;
 import com.example.stacks.payload.Signup;
+import com.example.stacks.repository.ImageRepository;
 import com.example.stacks.repository.UserRepository;
 import com.example.stacks.service.UserServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
+import org.springframework.http.ResponseEntity;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -35,11 +39,16 @@ public class UserServiceTest {
     @Mock
     UserRepository dao;
     List<User> userList = new ArrayList<>();
-    User newUser = new User(1L,"a","s","a@email.com","123",null,null,null, Status.ACTIVE,null);
+    private User newUser;
+
+    @BeforeEach
+    void setUp() {
+        newUser = new User(1L, "a", "s", "a@email.com", "123", null, null, null, Status.ACTIVE, null);
+        userList.add(newUser);
+    }
 
     @Test
     void testFindAllUsers() {
-        userList.add(newUser);
         when(dao.findAll()).thenReturn(userList);
 
         List<UserDto> empList = service.fetchAllUsers();
@@ -50,50 +59,54 @@ public class UserServiceTest {
         assertEquals("a@email.com", empList.get(0).getEmail());
 
         verify(dao, times(1)).findAll();
+        assertEquals(1, empList.size());
+
     }
 
     @Test
     void testFindById() {
-        userList.add(newUser);
         when(dao.findById(1L)).thenReturn(Optional.ofNullable(newUser));
 
         User userFound = service.fetchUserById(1L);
 
-        assertEquals(newUser,userFound);
+        assertEquals(newUser, userFound);
+        assertEquals(newUser.getId(), userFound.getId());
+        assertEquals(newUser.getFirstName(), userFound.getFirstName());
+        assertEquals(newUser.getLastName(), userFound.getLastName());
+
         verify(dao, times(1)).findById(1L);
     }
 
     @Test
     void testCreateUser() {
-        Set<Role> roleSet = new HashSet<>();
-        Role userRole = new Role(1L,ERole.USER);
+        Set<Role> roleSet = Collections.singleton(new Role(1L, ERole.USER));
 
-         roleSet.add(userRole);
-
-        Signup newSignup = new Signup("Kair","St","kair@gmail.com","123",null);
-
+        Signup newSignup = new Signup("Kair", "St", "kair@gmail.com", "123", null);
         User userFromSignUp = new User();
-        userFromSignUp.setId(1L);
+        userFromSignUp.setId(2L);
         userFromSignUp.setFirstName(newSignup.getFirstName());
         userFromSignUp.setLastName(newSignup.getLastName());
         userFromSignUp.setPassword(newSignup.getPassword());
         userFromSignUp.setEmail(newSignup.getEmail());
         userFromSignUp.setRoles(roleSet);
-        System.out.println(userFromSignUp);
+        userList.add(userFromSignUp);
 
         dao.save(userFromSignUp);
+
+        assertEquals(2, userList.size());
+        assertEquals("a", userList.get(0).getFirstName());
+        assertEquals("Kair", userList.get(1).getFirstName());
+        assertEquals(1, userList.get(0).getId());
+        assertEquals(2, userList.get(1).getId());
 
         verify(dao, times(1)).save(userFromSignUp);
     }
 
     @Test
     void testSignIn() {
-        userList.add(newUser);
+        SignIn signIn = new SignIn("a@email.com", "123");
 
-        SignIn signIn = new SignIn("a@email.com","123");
-
-        assertEquals(newUser.getEmail(),signIn.getEmail());
-        assertEquals(newUser.getPassword(),signIn.getPassword());
-
+        assertEquals(newUser.getEmail(), signIn.getEmail());
+        assertEquals(newUser.getPassword(), signIn.getPassword());
     }
 }
