@@ -105,7 +105,7 @@ public class UserServiceTest {
     @Test
     void testSignIn() {
         SignIn signIn = new SignIn("a@email.com", "123");
-//test
+
         assertEquals(newUser.getEmail(), signIn.getEmail());
         assertEquals(newUser.getPassword(), signIn.getPassword());
     }
