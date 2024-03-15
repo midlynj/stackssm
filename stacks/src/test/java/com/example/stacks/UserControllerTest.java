@@ -56,7 +56,7 @@ public class UserControllerTest {
     @Test
     void shouldReturnDefaultMessage() throws Exception {
 //        isolation test
-        this.mockMvc.perform(get("/api/users/")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hello, World")));
     }
 

@@ -7,7 +7,6 @@ import com.example.stacks.entity.Status;
 import com.example.stacks.entity.User;
 import com.example.stacks.payload.SignIn;
 import com.example.stacks.payload.Signup;
-import com.example.stacks.repository.RoleRepository;
 import com.example.stacks.repository.UserRepository;
 import com.example.stacks.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -50,8 +49,6 @@ public class UserServiceTest {
         assertEquals("s", empList.get(0).getLastName());
         assertEquals("a@email.com", empList.get(0).getEmail());
 
-
-
         verify(dao, times(1)).findAll();
     }
 
@@ -92,8 +89,6 @@ public class UserServiceTest {
     @Test
     void testSignIn() {
         userList.add(newUser);
-
-
 
         SignIn signIn = new SignIn("a@email.com","123");
 

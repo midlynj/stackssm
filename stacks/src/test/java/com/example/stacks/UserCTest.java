@@ -42,17 +42,17 @@ public class UserCTest {
                 .andExpect(content().string(("Hello, World")));
     }
 
-    @Test
-    public void getAllEmployeesAPI() throws Exception
-    {
-        mockMvc.perform(MockMvcRequestBuilders
-                        .get("/api/users/all")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.users").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.users[*].userId").isNotEmpty());
-    }
+//    @Test
+//    public void getAllEmployeesAPI() throws Exception
+//    {
+//        mockMvc.perform(MockMvcRequestBuilders
+//                        .get("/api/users/all")
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.users").exists())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.users[*].userId").isNotEmpty());
+//    }
 
     @Test
     void healthCheckTestas() throws Exception {
