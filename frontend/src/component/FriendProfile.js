@@ -40,7 +40,7 @@ const FriendProfile = () => {
                 <header>
                     <div className="tb">
                         <div className="td" id="logo">
-                            {/*<a href="#"><i className="fab fa-facebook-square"></i></a>*/}
+                            <a href="#"><i className="fab fa-facebook-square"></i></a>
                         </div>
 
                         <div className="td" id="i-links">
@@ -128,7 +128,7 @@ const FriendProfile = () => {
                             </div>
 
                             <div id="t-box">
-                                {/*<a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a> <a href="#">Cookies</a>*/}
+                                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a> <a href="#">Cookies</a>
                                 <div id="cpy-nt">Stacks Of Laughs &copy; <span id="curr-year"></span></div>
                             </div>
                         </div>
@@ -177,14 +177,14 @@ const FriendProfile = () => {
 
                                 <div className="post">
                                     <div className="tb">
-                                        {/*<a href="#" className="td p-p-pic"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY3-jXkdGt479-LGLdQMet805Y1lQlgH0CBg&usqp=CAU" alt="post update"/></a>*/}
+                                        <a href="#" className="td p-p-pic"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY3-jXkdGt479-LGLdQMet805Y1lQlgH0CBg&usqp=CAU" alt="post update"/></a>
                                         <div className="td p-r-hdr">
                                             <div className="p-u-info" style={{
                                                 color:"#a8a8a8"
                                             }}>
-                                                {/*<a href="#" style={{*/}
-                                                {/*    color:"#f1861b"*/}
-                                                {/*}}>{data.firstName}</a> shared a picture*/}
+                                                <a href="#" style={{
+                                                    color:"#f1861b"
+                                                }}>{data.firstName}</a> shared a picture
                                             </div>
                                             <div className="p-dt">
                                                 <span>25 minutes ago</span>

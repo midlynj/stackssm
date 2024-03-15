@@ -229,7 +229,7 @@ const Profile = () => {
                             </div>
 
                             <div id="t-box">
-                                {/*<a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a>  <a href="#">Cookies</a> <span id="t-more">More</span>*/}
+                                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a>  <a href="#">Cookies</a> <span id="t-more">More</span>
                                 <div id="cpy-nt">Stacks Of Laughs &copy; <span id="curr-year"></span></div>
                             </div>
                         </div>
@@ -297,14 +297,14 @@ const Profile = () => {
 
                                 <div className="post">
                                     <div className="tb">
-                                        {/*<a href="#" className="td p-p-pic"><img src={image1.url} alt="profile"/></a>*/}
+                                        <a href="#" className="td p-p-pic"><img src={image1.url} alt="profile"/></a>
                                         <div className="td p-r-hdr">
                                             <div className="p-u-info" style={{
                                                 color:"#a8a8a8"
                                             }}>
-                                                {/*<a href="#" style={{*/}
-                                                {/*    color:"#f1861b"*/}
-                                                {/*}}>You</a> shared a picture*/}
+                                                <a href="#" style={{
+                                                    color:"#f1861b"
+                                                }}>You</a> shared a picture
                                             </div>
                                             <div className="p-dt">
                                                 <span>25 minutes ago</span>
