@@ -128,7 +128,7 @@ const FriendProfile = () => {
                             </div>
 
                             <div id="t-box">
-                                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a> <a href="#">Cookies</a>
+                                {/*<a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a> <a href="#">Cookies</a>*/}
                                 <div id="cpy-nt">Stacks Of Laughs &copy; <span id="curr-year"></span></div>
                             </div>
                         </div>
@@ -182,9 +182,9 @@ const FriendProfile = () => {
                                             <div className="p-u-info" style={{
                                                 color:"#a8a8a8"
                                             }}>
-                                                <a href="#" style={{
-                                                    color:"#f1861b"
-                                                }}>{data.firstName}</a> shared a picture
+                                                {/*<a href="#" style={{*/}
+                                                {/*    color:"#f1861b"*/}
+                                                {/*}}>{data.firstName}</a> shared a picture*/}
                                             </div>
                                             <div className="p-dt">
                                                 <span>25 minutes ago</span>
