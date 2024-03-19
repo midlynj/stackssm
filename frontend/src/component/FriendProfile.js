@@ -39,9 +39,9 @@ const FriendProfile = () => {
 
                 <header>
                     <div className="tb">
-                        <div className="td" id="logo">
-                            <a href="#"><i className="fab fa-facebook-square"></i></a>
-                        </div>
+                        {/*<div className="td" id="logo">*/}
+                        {/*    <a href="#"><i className="fab fa-facebook-square"></i></a>*/}
+                        {/*</div>*/}
 
                         <div className="td" id="i-links">
                             <div className="tb">
@@ -128,7 +128,26 @@ const FriendProfile = () => {
                             </div>
 
                             <div id="t-box">
-                                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a> <a href="#">Cookies</a>
+                                {/*<a href="#">*/}
+                                <span>
+                                    Privacy
+                                </span>
+                                {/*</a> */}
+                                {/*<a href="#">*/}
+                                <span>
+                                    Terms
+                                </span>
+                                {/*</a> */}
+                                {/*<a href="#">*/}
+                                <span>
+                                    Advertising
+                                </span>
+                                {/*</a> */}
+                                {/*<a href="#">*/}
+                                <span>
+                                    Cookies
+                                </span>
+                                {/*</a>*/}
                                 <div id="cpy-nt">Stacks Of Laughs &copy; <span id="curr-year"></span></div>
                             </div>
                         </div>
@@ -177,14 +196,22 @@ const FriendProfile = () => {
 
                                 <div className="post">
                                     <div className="tb">
-                                        <a href="#" className="td p-p-pic"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY3-jXkdGt479-LGLdQMet805Y1lQlgH0CBg&usqp=CAU" alt="post update"/></a>
+                                        {/*<a href="#" className="td p-p-pic">*/}
+                                        <span className="td p-p-pic">
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY3-jXkdGt479-LGLdQMet805Y1lQlgH0CBg&usqp=CAU" alt="post update"/>
+                                        </span>
+                                            {/*</a>*/}
                                         <div className="td p-r-hdr">
                                             <div className="p-u-info" style={{
                                                 color:"#a8a8a8"
                                             }}>
-                                                <a href="#" style={{
+                                                {/*<a href="#" */}
+                                                <span
+                                                   style={{
                                                     color:"#f1861b"
-                                                }}>{data.firstName}</a> shared a picture
+                                                }}>{data.firstName}
+                                                </span> shared a picture
+                                                {/*</a> shared a picture*/}
                                             </div>
                                             <div className="p-dt">
                                                 <span>25 minutes ago</span>
