@@ -492,11 +492,14 @@ main {
     line-height: 18px;
 }
 
-#t-box a {
+/*#t-box a {*/
+/*    margin-right: 5px;*/
+/*}*/
+#t-box span {
     margin-right: 5px;
 }
 
-#t-box a,
+#t-box span,
 #t-more {
     color: #999;
 }

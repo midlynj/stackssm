@@ -54,16 +54,7 @@ public class UserCTest {
 //                .andExpect(MockMvcResultMatchers.jsonPath("$.users[*].userId").isNotEmpty());
 //    }
 
-    @Test
-    void healthCheckTestas() throws Exception {
-//    Controller testing
-        Set<String> strRoles = new HashSet<>();
 
-        strRoles.add("ADMIN");
-
-        Signup newUser = new Signup("Joey", "Stacks", "joey@gmail.com", "123", strRoles);
-
-    }
 }
 
 

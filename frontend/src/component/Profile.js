@@ -38,7 +38,9 @@ const Profile = () => {
     };
 
     const { data: image1, isLoading: imageLoading } = useQuery("myImage", async () =>
-        (await axios.get(`${URL.BASE_URL}/image/display/${userId}`)).data
+        // (await axios.get(`${URL.BASE_URL}/image/display/${userId}`)).data
+     await fetch(`http://localhost:8080/api/image/display/${userId}`)
+
     );
 
     const { data, isLoading, isError } = useQuery("userPosts", async () =>
@@ -228,8 +230,30 @@ const Profile = () => {
 
                             </div>
 
-                            <div id="t-box">
-                                <a href="#">Privacy</a> <a href="#">Terms</a> <a href="#">Advertising</a>  <a href="#">Cookies</a> <span id="t-more">More</span>
+                            <div id="t-box" className="m-8">
+                                {/*<a href="#">*/}
+                                    <span>
+                                    Privacy
+                                    </span>
+                                {/* Space character */}
+
+                                {/*</a> */}
+                                {/*<a href="#">*/}
+                                <span>
+                                    Terms
+                                </span>
+                                {/*</a> */}
+                                {/*<a href="#">*/}
+                                <span>
+                                    Advertising
+                                </span>
+                                {/*</a>  */}
+                                {/*<a href="#">*/}
+                                <span>
+                                    Cookies
+                                </span>
+                            {/*</a> */}
+                                <span id="t-more">More</span>
                                 <div id="cpy-nt">Stacks Of Laughs &copy; <span id="curr-year"></span></div>
                             </div>
                         </div>
@@ -297,14 +321,25 @@ const Profile = () => {
 
                                 <div className="post">
                                     <div className="tb">
-                                        <a href="#" className="td p-p-pic"><img src={image1.url} alt="profile"/></a>
+                                        {/*<a href="#"*/}
+                                           <span
+
+                                           className="td p-p-pic"><img src={image1.url} alt="profile"/>
+                                           </span>
+
+                                        {/*</a>*/}
                                         <div className="td p-r-hdr">
                                             <div className="p-u-info" style={{
                                                 color:"#a8a8a8"
                                             }}>
-                                                <a href="#" style={{
+                                                {/*<a href="#"*/}
+                                                <span
+                                                   style={{
                                                     color:"#f1861b"
-                                                }}>You</a> shared a picture
+                                                }}>
+                                                    You
+                                                </span> shared a picture
+                                                {/*</a> */}
                                             </div>
                                             <div className="p-dt">
                                                 <span>25 minutes ago</span>
