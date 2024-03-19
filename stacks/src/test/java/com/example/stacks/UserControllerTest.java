@@ -32,6 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.containsString;
 
+//Use @SpringBootTest for tests that cover the whole Spring Boot application from incoming request to database.
+
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -56,7 +58,7 @@ public class UserControllerTest {
     @Test
     void shouldReturnDefaultMessage() throws Exception {
 //        isolation test
-        this.mockMvc.perform(get("/api/users/")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hello, World")));
     }
 
