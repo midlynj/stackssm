@@ -9,8 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 class StacksApplicationTests {
-
-
     @Autowired
     private UserController userController;
     @Autowired
@@ -21,7 +19,6 @@ class StacksApplicationTests {
     private PostController postController;
     @Autowired
     private ImageController imageController;
-
 
     @Test
     void contextLoads() throws Exception {
