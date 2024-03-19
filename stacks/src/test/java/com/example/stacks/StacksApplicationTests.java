@@ -31,7 +31,6 @@ class StacksApplicationTests {
         assertThat(friendController).isNotNull();
         assertThat(postController).isNotNull();
         assertThat(imageController).isNotNull();
-
     }
 
 }
