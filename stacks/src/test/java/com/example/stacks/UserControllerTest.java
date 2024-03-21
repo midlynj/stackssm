@@ -86,8 +86,8 @@ public class UserControllerTest {
         assertNotNull(users);
      System.out.println(users);
 //
-//        assertEquals(3, users.size());
-//        assertEquals("joey@email.com",users.get(2).getEmail());
+        assertEquals(3, users.size());
+        assertEquals("joey@email.com",users.get(2).getEmail());
     }
 
     @Test
