@@ -28,10 +28,10 @@ create table if not exists user
     user_picture blob,
     status     VARCHAR(255)
 );
-INSERT INTO user (first_name,last_name,email,password,user_picture, status)
-VALUES
-    ('Danie','Yockney','dy@email.com','123', null, 'ACTIVE'),
-    ('J','St','jo@email.com','123', null, 'ACTIVE');
+# INSERT INTO user (first_name,last_name,email,password,user_picture, status)
+# VALUES
+#     ('Danie','Yockney','dy@email.com','123', null, 'ACTIVE'),
+#     ('J','St','jo@email.com','123', null, 'ACTIVE');
 
 
 
