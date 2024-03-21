@@ -70,7 +70,7 @@ public class UserControllerTest {
                 requestEntity,
                 MessageResponse.class);
 
-        assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         MessageResponse response = responseEntity.getBody();
 
