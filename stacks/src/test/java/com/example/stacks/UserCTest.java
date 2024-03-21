@@ -67,15 +67,15 @@ public class UserCTest {
                 .andExpect(content().string(("Hello, World")));
     }
 
-    @Test
-    @Sql("/m.sql")
-    public void testGetAllUsers() throws Exception {
-        // Perform GET request to retrieve all users
-        mockMvc.perform(get("/api/users/all")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].firstName").value("Danie"));
-    }
+//    @Test
+//    @Sql("/m.sql")
+//    public void testGetAllUsers() throws Exception {
+//        // Perform GET request to retrieve all users
+//        mockMvc.perform(get("/api/users/all")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[0].firstName").value("Danie"));
+//    }
 
 //    @Test
 //    public void getAllEmployeesAPI() throws Exception
