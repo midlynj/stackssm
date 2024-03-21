@@ -25,10 +25,6 @@ VALUES
 --     content VARCHAR(255),
 --     author_id int
 -- );
--- INSERT INTO role (name)
--- VALUES
---     ('USER'),
---     ('ACTIVE');
 
 create table if not exists user
 (

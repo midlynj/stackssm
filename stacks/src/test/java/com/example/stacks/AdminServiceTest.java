@@ -51,10 +51,10 @@ public class AdminServiceTest {
 
         adminUser = new User(1L,"a","b","a@email.com","123",null,null,null,Status.ACTIVE,adminRole);
 
-         user1 = new User(2L, "c", "d", "cd@email.com", "123", null, null, null, Status.ACTIVE, userRole);
+        user1 = new User(2L, "c", "d", "cd@email.com", "123", null, null, null, Status.ACTIVE, userRole);
         users.add(user1);
 
-         inactiveUser = new User(3L, "e", "f", "ef@email.com", "123", null, null, null, Status.INACTIVE, userRole);
+        inactiveUser = new User(3L, "e", "f", "ef@email.com", "123", null, null, null, Status.INACTIVE, userRole);
         users.add(user1);
     }
 

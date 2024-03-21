@@ -32,7 +32,6 @@ import static org.hamcrest.Matchers.containsString;
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -102,6 +101,7 @@ public class UserControllerTest {
         User user = response.getBody();
         assertEquals("Danie", user.getFirstName());
     }
+
     @Test
     void greetingShouldReturnDefaultMessage() throws Exception {
 //        integration test
