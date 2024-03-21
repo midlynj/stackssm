@@ -36,7 +36,7 @@ public class UserCTest {
 
     @Test
     void healthCheckTest() throws Exception {
-//    Controller testing
+//    Controller testing since Im mocking the response
         when(service.greet()).thenReturn("Hello, World");
         this.mockMvc.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(("Hello, World")));

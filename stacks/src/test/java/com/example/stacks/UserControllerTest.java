@@ -7,22 +7,17 @@ import com.example.stacks.payload.Signup;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
@@ -33,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.hamcrest.Matchers.containsString;
 
 //Use @SpringBootTest for tests that cover the whole Spring Boot application from incoming request to database.
-
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -48,6 +42,66 @@ public class UserControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Test
+    @Sql("/m.sql")
+    public void testAllUsers() {
+        ResponseEntity<List<UserDto>> response = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users/all",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<UserDto>>() {});
+
+        List<UserDto> users = response.getBody();
+        assertEquals(2,users.size());
+        assertEquals("Joe", users.get(1).getFirstName());
+        assertEquals("Danie", users.get(0).getFirstName());
+    }
+
+ @Test
+ @Sql("/m.sql")
+    public void testCreateUser() {
+        Signup newUser = new Signup("Joey", "Doe","joey@email.com","123",null);
+
+        HttpEntity<Signup> requestEntity = new HttpEntity<>(newUser);
+
+        ResponseEntity<MessageResponse> responseEntity = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users/create",
+                HttpMethod.POST,
+                requestEntity,
+                MessageResponse.class);
+
+        assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
+
+        MessageResponse response = responseEntity.getBody();
+
+        assertEquals("New user registered successfully", response.getMessage() );
+
+        ResponseEntity<List<UserDto>> getUsersResponse = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users/all",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<UserDto>>() {});
+
+        List<UserDto> users = getUsersResponse.getBody();
+
+        assertEquals(3, users.size());
+        assertEquals("joey@email.com",users.get(2).getEmail());
+    }
+
+    @Test
+    @Sql("/m.sql")
+    public void testById() {
+        long userId = 1L;
+        ResponseEntity<User> response = restTemplate.exchange(
+                "http://localhost:" + port + "/api/users/{id}",
+                HttpMethod.GET,
+                null,
+                User.class,
+                userId);
+
+        User user = response.getBody();
+        assertEquals("Danie", user.getFirstName());
+    }
     @Test
     void greetingShouldReturnDefaultMessage() throws Exception {
 //        integration test
