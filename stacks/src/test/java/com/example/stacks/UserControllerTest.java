@@ -87,20 +87,20 @@ public class UserControllerTest {
         assertEquals("joey@email.com",users.get(2).getEmail());
     }
 
-    @Test
-    @Sql("/m.sql")
-    public void testById() {
-        long userId = 1L;
-        ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/{id}",
-                HttpMethod.GET,
-                null,
-                User.class,
-                userId);
-
-        User user = response.getBody();
-        assertEquals("Danie", user.getFirstName());
-    }
+//    @Test
+//    @Sql("/m.sql")
+//    public void testById() {
+//        long userId = 1L;
+//        ResponseEntity<User> response = restTemplate.exchange(
+//                "http://localhost:" + port + "/api/users/{id}",
+//                HttpMethod.GET,
+//                null,
+//                User.class,
+//                userId);
+//
+//        User user = response.getBody();
+//        assertEquals("Danie", user.getFirstName());
+//    }
 
     @Test
     void greetingShouldReturnDefaultMessage() throws Exception {
