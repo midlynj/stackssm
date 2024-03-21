@@ -91,7 +91,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @Sql("/m.sql")
+    @Sql("/n.sql")
     public void testById() {
         long userId = 1L;
         ResponseEntity<User> response = restTemplate.exchange(
