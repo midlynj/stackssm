@@ -58,7 +58,7 @@ public class UserControllerTest {
     }
 
  @Test
- @Sql("/n.sql")
+ @Sql("/m.sql")
     public void testCreateUser() {
         Signup newUser = new Signup("Joey", "Doe","joey@email.com","123",null);
 
