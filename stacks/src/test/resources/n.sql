@@ -30,8 +30,8 @@ create table if not exists user
 );
 INSERT INTO user (first_name,last_name,email,password,user_picture, status)
 VALUES
-    ('Danie','Yockney','dyo@email.com','123', null, 'ACTIVE'),
-    ('Joe','Sta','joe@email.com','123', null, 'ACTIVE');
+    ('Danie','Yockney','dy@email.com','123', null, 'ACTIVE'),
+    ('J','St','jo@email.com','123', null, 'ACTIVE');
 
 
 
