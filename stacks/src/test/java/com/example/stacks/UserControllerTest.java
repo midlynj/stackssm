@@ -58,7 +58,7 @@ public class UserControllerTest {
     }
 
  @Test
- @Sql("/m.sql")
+ @Sql("/n.sql")
     public void testCreateUser() {
         Signup newUser = new Signup("Joey", "Doe","joey@email.com","123",null);
 
@@ -70,11 +70,11 @@ public class UserControllerTest {
                 requestEntity,
                 MessageResponse.class);
 
-//        assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(responseEntity.getStatusCode().is2xxSuccessful()).isTrue();
 
         MessageResponse response = responseEntity.getBody();
 
-//        assertEquals("New user registered successfully", response.getMessage() );
+        assertEquals("New user registered successfully", response.getMessage() );
 
         ResponseEntity<List<UserDto>> getUsersResponse = restTemplate.exchange(
                 "http://localhost:" + port + "/api/users/all",
