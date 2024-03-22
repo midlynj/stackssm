@@ -28,10 +28,18 @@ create table if not exists user
     user_picture blob,
     status     VARCHAR(255)
 );
-# INSERT INTO user (first_name,last_name,email,password,user_picture, status)
-# VALUES
-#     ('Danie','Yockney','dy@email.com','123', null, 'ACTIVE'),
-#     ('J','St','jo@email.com','123', null, 'ACTIVE');
+INSERT INTO user (first_name,last_name,email,password,user_picture, status)
+VALUES
+    ('Danie','Yockney','dyo@email.com','123', null, 'ACTIVE'),
+    ('Joe','Sta','joe@email.com','123', null, 'ACTIVE');
 
-
-
+CREATE TABLE IF NOT EXISTS user_roles (
+    user_id INTEGER,
+    role_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+INSERT INTO user_roles(user_id, role_id)
+VALUES
+    (1,1),
+    (2,2)

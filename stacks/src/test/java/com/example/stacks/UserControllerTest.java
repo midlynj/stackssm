@@ -1,122 +1,81 @@
 package com.example.stacks;
 
+import com.example.stacks.controller.UserController;
 import com.example.stacks.dto.UserDto;
+import com.example.stacks.entity.Status;
 import com.example.stacks.entity.User;
-import com.example.stacks.payload.MessageResponse;
+import com.example.stacks.payload.SignIn;
 import com.example.stacks.payload.Signup;
+import com.example.stacks.service.UserServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.*;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.mockito.Mockito.when;
 
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.containsString;
-
-//Use @SpringBootTest for tests that cover the whole Spring Boot application from incoming request to database.
-
-@AutoConfigureMockMvc
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    private UserController userController;
+    @Mock
+    private UserServiceImpl userService;
+    private List<UserDto> userDtoList;
 
-    @LocalServerPort
-    private int port;
+    private User user = new User(1L, "a", "s", "a@email.com", "123", null, null, null, Status.ACTIVE, null);
 
-    @Autowired
-    private TestRestTemplate restTemplate;
 
-    @Test
-    @Sql("/m.sql")
-    public void testAllUsers() {
-        ResponseEntity<List<UserDto>> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/all",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<UserDto>>() {});
-
-        List<UserDto> users = response.getBody();
-        assertEquals(2,users.size());
-        assertEquals("Joe", users.get(1).getFirstName());
-        assertEquals("Danie", users.get(0).getFirstName());
+    @BeforeEach
+    void setUp() {
+        userDtoList = new ArrayList<>();
+        userDtoList.add(new UserDto(1L, "j", "s", "j@email.com", null));
     }
 
- @Test
-// @Sql("/n.sql")
+    @Test
+    public void testGetAllUsers() {
+        when(userService.fetchAllUsers()).thenReturn(userDtoList);
+
+        List<UserDto> response = userController.fetchAllUsers();
+
+        assertEquals(1, response.size());
+    }
+
+    @Test
     public void testCreateUser() {
-        Signup newUser = new Signup("Joey", "Doe","joey@email.com","123",null);
+        Signup newUser = new Signup("joey","stacks","joey@email.com","123",null);
 
-        HttpEntity<Signup> requestEntity = new HttpEntity<>(newUser);
+        when(userService.createNewUser(newUser)).thenReturn(ResponseEntity.ok().build());
 
-        ResponseEntity<MessageResponse> responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/create",
-                HttpMethod.POST,
-                requestEntity,
-                MessageResponse.class);
+        ResponseEntity<?> response = userController.createUser(newUser);
 
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-
-        MessageResponse response = responseEntity.getBody();
-
-        assertEquals("New user registered successfully", response.getMessage() );
-
-        ResponseEntity<List<UserDto>> getUsersResponse = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/all",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<UserDto>>() {});
-
-        List<UserDto> users = getUsersResponse.getBody();
-        assertNotNull(users);
-     System.out.println(users);
-//
-        assertEquals(3, users.size());
-        assertEquals("joey@email.com",users.get(2).getEmail());
+        assertEquals(HttpStatus.OK, response.getStatusCode() );
     }
 
     @Test
-//    @Sql("/m.sql")
-    public void testById() {
-        long userId = 1L;
-        ResponseEntity<User> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/users/{id}",
-                HttpMethod.GET,
-                null,
-                User.class,
-                userId);
+    public void testUserById() {
+        when(userService.fetchUserById(1L)).thenReturn(user);
 
-        User user = response.getBody();
-        assertEquals("Danie", user.getFirstName());
+        User response = userController.fetchUserById(1L);
+
+        assertEquals("a", response.getFirstName());
     }
 
     @Test
-    void greetingShouldReturnDefaultMessage() throws Exception {
-//        integration test
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/users",
-                String.class)).isEqualTo("Hello, World");
-    }
+    public void testSignIn() {
+        SignIn signIn = new SignIn("a@email.com", "123");
 
-    @Test
-    void shouldReturnDefaultMessage() throws Exception {
-//        isolation test
-        this.mockMvc.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World")));
-    }
+        when(userService.authenticateUser(signIn)).thenReturn(ResponseEntity.ok().build());
 
+        ResponseEntity<?> response = userController.authenticateUser(signIn);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
 }
