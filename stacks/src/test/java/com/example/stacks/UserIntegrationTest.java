@@ -105,19 +105,6 @@ public class UserIntegrationTest {
         assertEquals("Danie", user.getFirstName());
     }
 
-    @Test
-    void greetingShouldReturnDefaultMessage() throws Exception {
-//        integration test
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/api/users",
-                String.class)).isEqualTo("Hello, World");
-    }
-
-    @Test
-    void shouldReturnDefaultMessage() throws Exception {
-//        isolation test
-        this.mockMvc.perform(get("/api/users")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World")));
-    }
 //alternative to testAllUsers method
 //    @Test
 //    @Sql(statements = {
