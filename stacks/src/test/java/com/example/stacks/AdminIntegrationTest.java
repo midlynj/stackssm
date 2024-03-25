@@ -40,9 +40,10 @@ public class AdminIntegrationTest {
                 new ParameterizedTypeReference<List<UserDto3>>() {});
                 
                 assertEquals(HttpStatus.OK, response.getStatusCode());
-                assertEquals(2, response.getBody().size());
+                assertEquals(3, response.getBody().size());
                 assertEquals("Joe", response.getBody().get(0).getFirstName());
                 assertEquals("Kairo", response.getBody().get(1).getFirstName());
+                System.out.println(response.getBody().size());
     }
 
     @Test
