@@ -32,8 +32,7 @@ INSERT INTO user (first_name,last_name,email,password,user_picture, status)
 VALUES
     ('Danie','Yockney','dyo@email.com','123', null, 'ACTIVE'),
     ('Joe','Stoop','joe@email.com','123', null, 'ACTIVE'),
-    ('Kairo','Lapaart','k@email.com','123', null, 'INACTIVE'),
-    ('Hope','Aneyt','hope@email.com','123', null, 'RESTRICTED');
+    ('Kairo','Lapaart','klpa@email.com','123', null, 'INACTIVE');
 
 
 
@@ -47,5 +46,4 @@ INSERT INTO user_roles(user_id, role_id)
 VALUES
     (1,2),
     (2,1),
-    (3,1),
-    (4,1);
+    (3,1);
