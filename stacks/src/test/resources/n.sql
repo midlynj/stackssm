@@ -32,7 +32,7 @@ INSERT INTO user (first_name,last_name,email,password,user_picture, status)
 VALUES
     ('Danie','Yockney','dyo@email.com','123', null, 'ACTIVE'),
     ('Joe','Sta','joe@email.com','123', null, 'ACTIVE'),
-    ('Ki','Sta','ki@email.com','123', null, 'INACTIVE');
+    ('Kairo','Sta','ki@email.com','123', null, 'INACTIVE');
 
 
 
