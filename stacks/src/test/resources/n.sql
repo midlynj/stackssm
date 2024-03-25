@@ -36,14 +36,14 @@ VALUES
 
 
 
-CREATE TABLE IF NOT EXISTS user_roles (
-    user_id INTEGER,
-    role_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (role_id) REFERENCES roles(id)
-);
-INSERT INTO user_roles(user_id, role_id)
-VALUES
-    (1,2),
-    (2,1),
-    (3,1);
+-- CREATE TABLE IF NOT EXISTS user_roles (
+--     user_id INTEGER,
+--     role_id INTEGER,
+--     FOREIGN KEY (user_id) REFERENCES users(id),
+--     FOREIGN KEY (role_id) REFERENCES roles(id)
+-- );
+-- INSERT INTO user_roles(user_id, role_id)
+-- VALUES
+--     (1,2),
+--     (2,1),
+--     (3,1);
