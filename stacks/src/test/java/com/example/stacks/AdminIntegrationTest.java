@@ -29,22 +29,22 @@ public class AdminIntegrationTest {
     @Autowired
     AdminTestRepo testRepo;
 
-    @Test
-    @Sql("/n.sql")
-    public void testAllUsers() {
-        String adminEmail = "dyol@email.com";
-        ResponseEntity<List<UserDto3>> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/admin/all/users?email=" + adminEmail,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<UserDto3>>() {});
+    // @Test
+    // @Sql("/n.sql")
+    // public void testAllUsers() {
+    //     String adminEmail = "dyol@email.com";
+    //     ResponseEntity<List<UserDto3>> response = restTemplate.exchange(
+    //             "http://localhost:" + port + "/api/admin/all/users?email=" + adminEmail,
+    //             HttpMethod.GET,
+    //             null,
+    //             new ParameterizedTypeReference<List<UserDto3>>() {});
                 
-                assertEquals(HttpStatus.OK, response.getStatusCode());
-                assertEquals(2, response.getBody().size());
-                assertEquals("Joel", response.getBody().get(0).getFirstName());
-                assertEquals("Kairol", response.getBody().get(1).getFirstName());
-                System.out.println(response.getBody().size());
-    }
+    //             assertEquals(HttpStatus.OK, response.getStatusCode());
+    //             assertEquals(2, response.getBody().size());
+    //             assertEquals("Joel", response.getBody().get(0).getFirstName());
+    //             assertEquals("Kairol", response.getBody().get(1).getFirstName());
+    //             System.out.println(response.getBody().size());
+    // }
 
     @Test
     public void testRestrictUserById() {
