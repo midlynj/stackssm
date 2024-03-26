@@ -1,5 +1,6 @@
 package com.example.stacks;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
@@ -78,10 +79,10 @@ public class PostIntegrationTest {
                 authorId);
 
                 assertEquals(4, postTestRepo.findAll().size());
-                assertEquals("Ki", postTestRepo.findAll().get(3).getAuthor().getFirstName());
-                assertEquals("Ki 1st post", postTestRepo.findAll().get(3).getContent());
-
-                System.out.println(postTestRepo.findAll().size());
+                assertAll(
+                        () -> assertEquals("Ki",postTestRepo.findAll().get(3).getAuthor().getFirstName()),
+                        () -> assertEquals("Ki 1st post", postTestRepo.findAll().get(3).getContent() )
+                );
     }
     
 }

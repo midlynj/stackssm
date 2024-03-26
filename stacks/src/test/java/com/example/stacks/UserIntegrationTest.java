@@ -20,8 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.jdbc.Sql;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 //Use @SpringBootTest for tests that cover the whole Spring Boot application from incoming request to database.
@@ -114,9 +113,11 @@ public class UserIntegrationTest {
                     UserDto2.class
 
                     );
-                     System.out.println(response);
-                     assertEquals("joe@email.com", response.getBody().getEmail());
-                     assertEquals("Joe", response.getBody().getFirstName());
+
+            assertAll (
+                () -> assertEquals("joe@email.com",response.getBody().getEmail()),
+                () -> assertEquals("Joe", response.getBody().getFirstName())
+            );
         }
 
 
