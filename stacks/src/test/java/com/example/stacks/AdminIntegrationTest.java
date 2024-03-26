@@ -30,7 +30,7 @@ public class AdminIntegrationTest {
     AdminTestRepo testRepo;
 
     @Test
-//    @Sql("/n.sql")
+    @Sql("/n.sql")
     public void testAllUsers() {
         String adminEmail = "dyol@email.com";
         ResponseEntity<List<UserDto3>> response = restTemplate.exchange(
@@ -41,9 +41,8 @@ public class AdminIntegrationTest {
 
                 assertEquals(HttpStatus.OK, response.getStatusCode());
                 assertEquals(2, response.getBody().size());
-                assertEquals("Joe", response.getBody().get(0).getFirstName());
-                assertEquals("Ki", response.getBody().get(1).getFirstName());
-                System.out.println(response.getBody().size());
+                assertEquals("Joel", response.getBody().get(0).getFirstName());
+                assertEquals("Kairol", response.getBody().get(1).getFirstName());
     }
 
     @Test
