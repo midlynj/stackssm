@@ -1,5 +1,6 @@
 package com.example.stacks.service;
 
+import com.example.stacks.component.UserMapper;
 import com.example.stacks.dto.FriendDto;
 import com.example.stacks.dto.UserDto4;
 import com.example.stacks.dto.UserDto;
@@ -88,26 +89,11 @@ public class FriendServiceImpl implements FriendInterface {
             throw new RuntimeException("User: " + userExist.getFirstName() + " " + userExist.getLastName() + " is already friends with " + friendExist.getFirstName() + " " + friendExist.getLastName());
         }
 
-        List<FriendDto> friendDtoList = userExist.getFriends().stream()
-                .map(user -> {
-                    FriendDto friendDto = new FriendDto();
-                    friendDto.setId(user.getId());
-                    friendDto.setFirstName(user.getFirstName());
-                    friendDto.setEmail(user.getEmail());
-                    friendDto.setLastName(user.getLastName());
-                    return friendDto;
-                })
-                .collect(Collectors.toList());
+        List<FriendDto> friendDtoList = UserMapper.toFriendDtoList(userExist);
 
-        FriendDto friendDto = new FriendDto(friendExist.getId(), friendExist.getFirstName(), friendExist.getLastName(), friendExist.getEmail());
+        FriendDto friendDto = UserMapper.toFriendDto(friendExist);
 
-        UserDto4 userDto = new UserDto4();
-        userDto.setId(userExist.getId());
-        userDto.setFirstName(userExist.getFirstName());
-        userDto.setLastName(userExist.getLastName());
-        userDto.setEmail(userExist.getEmail());
-        userDto.setRole(userExist.getRoles());
-        userDto.setPosts(userExist.getPosts());
+        UserDto4 userDto = UserMapper.toUserDto4(userExist);
 
         friendDtoList.add(friendDto);
         friendRepository.addFriendFromUser(myId, friendId);
@@ -138,24 +124,11 @@ public class FriendServiceImpl implements FriendInterface {
             throw new RuntimeException("User: " + user.getFirstName() + " " + user.getLastName() + " " + "is not friends with " + friendUser.getFirstName() + " " + friendUser.getLastName());
         }
 
-        List<FriendDto> friendDtoList = user.getFriends().stream().map(user1 -> {
-            FriendDto friendDto = new FriendDto();
-            friendDto.setId(user1.getId());
-            friendDto.setFirstName(user1.getFirstName());
-            friendDto.setEmail(user1.getEmail());
-            friendDto.setLastName(user1.getLastName());
-            return friendDto;
-        }).collect(Collectors.toList());
+        List<FriendDto> friendDtoList = UserMapper.toFriendDtoList(user);
 
-        FriendDto friendDto = new FriendDto(friendUser.getId(), friendUser.getFirstName(), friendUser.getLastName(), friendUser.getEmail());
+        FriendDto friendDto = UserMapper.toFriendDto(friendUser);
 
-        UserDto4 userDto = new UserDto4();
-        userDto.setId(user.getId());
-        userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getLastName());
-        userDto.setEmail(user.getEmail());
-        userDto.setRole(user.getRoles());
-        userDto.setPosts(user.getPosts());
+        UserDto4 userDto = UserMapper.toUserDto4(user);
 
         friendDtoList.remove(friendDto);
 
