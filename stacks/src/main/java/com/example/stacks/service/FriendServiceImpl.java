@@ -1,5 +1,6 @@
 package com.example.stacks.service;
 
+import com.example.stacks.component.DtoMapper;
 import com.example.stacks.component.UserMapper;
 import com.example.stacks.dto.FriendDto;
 import com.example.stacks.dto.UserDto4;
@@ -10,17 +11,13 @@ import com.example.stacks.repository.FriendRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,31 +28,9 @@ public class FriendServiceImpl implements FriendInterface {
 
     @Override
     public List<UserDto> fetchUserFriends() {
-      return fetchEntitiesWithMapper(friendRepository,User.class,UserDto.class);
+      return DtoMapper.fetchEntitiesWithMapper(friendRepository,UserDto.class);
     }
 
-    public <T, D> List<D> fetchEntitiesWithMapper(JpaRepository<T, Long> repository, Class<T> entityClass, Class<D> dtoClass) {
-        List<T> entities = repository.findAll();
-        List<D> dtos = new ArrayList<>();
-
-        for (T entity : entities) {
-            D dto = mapEntityToDto(entity, dtoClass);
-            dtos.add(dto);
-        }
-
-        return dtos;
-    }
-
-    private <T, D> D mapEntityToDto(T entity, Class<D> dtoClass) {
-        try {
-            D dto = dtoClass.getDeclaredConstructor().newInstance();
-            BeanUtils.copyProperties(entity, dto);
-            return dto;
-        } catch (Exception e) {
-
-            return null;
-        }
-    }
 
     @Override
     public UserDto fetchUserFriendById(Long friendId) {
@@ -67,8 +42,7 @@ public class FriendServiceImpl implements FriendInterface {
         }
 
         User user = optionalUser.get();
-
-        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getFriends());
+        return DtoMapper.toDto(user, UserDto.class);
     }
 
     @Override

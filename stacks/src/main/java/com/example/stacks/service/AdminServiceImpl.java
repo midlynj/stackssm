@@ -1,5 +1,6 @@
 package com.example.stacks.service;
 
+import com.example.stacks.component.DtoMapper;
 import com.example.stacks.dto.UserDto3;
 import com.example.stacks.entity.ERole;
 import com.example.stacks.entity.Role;
@@ -16,8 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -53,13 +52,8 @@ public class AdminServiceImpl implements AdminInterface {
        LOGGER.info("Fetched all users");
 
         return ResponseEntity.ok( nonAdminUsers.stream().map(user -> {
-            UserDto3 userDto3 = new UserDto3();
-            userDto3.setId(user.getId());
-            userDto3.setFirstName(user.getFirstName());
-            userDto3.setLastName(user.getLastName());
-            userDto3.setEmail(user.getEmail());
-            userDto3.setStatus(user.getStatus());
-            return userDto3;
+          
+            return DtoMapper.toDto(user, UserDto3.class);
         })    .collect(Collectors.toList()));
    }
 

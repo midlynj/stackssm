@@ -24,9 +24,9 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
-    @InjectMocks
+    @InjectMocks//create instance of class and inject mocks
     private UserController userController;
-    @Mock
+    @Mock//the behavior i want
     private UserServiceImpl userService;
     private List<UserDto> userDtoList;
 
