@@ -28,7 +28,7 @@ public class FriendServiceImpl implements FriendInterface {
 
     @Override
     public List<UserDto> fetchUserFriends() {
-      return DtoMapper.fetchEntitiesWithMapper(friendRepository,UserDto.class);
+      return DtoMapper.toRepositoryDto(friendRepository.findAll(),UserDto.class);
     }
 
 

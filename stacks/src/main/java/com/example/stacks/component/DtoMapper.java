@@ -31,4 +31,12 @@ public class DtoMapper {
 
         return dtos;
     }
+    public static <T,D> List<D> toRepositoryDto(List<T> repo, Class<D> dto){
+        List<D> dList = new ArrayList<>();
+        for (T entity: repo) {
+            D m = toDto(entity,dto);
+            dList.add(m);
+        }
+        return dList;
+    }
 }
