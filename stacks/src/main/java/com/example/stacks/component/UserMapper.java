@@ -15,12 +15,12 @@ public class UserMapper {
             return null;
 
         return user.getFriends().stream().map(user1 -> {
-            FriendDto friendDto = new FriendDto();
-            friendDto.setId(user1.getId());
-            friendDto.setFirstName(user1.getFirstName());
-            friendDto.setEmail(user1.getEmail());
-            friendDto.setLastName(user1.getLastName());
-            return friendDto;
+            // FriendDto friendDto = new FriendDto();
+            // friendDto.setId(user1.getId());
+            // friendDto.setFirstName(user1.getFirstName());
+            // friendDto.setEmail(user1.getEmail());
+            // friendDto.setLastName(user1.getLastName());
+            return DtoMapper.toDto(user1, FriendDto.class);
         }).collect(Collectors.toList());
     }
 

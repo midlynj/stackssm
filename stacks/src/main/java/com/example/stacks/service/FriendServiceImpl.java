@@ -41,8 +41,7 @@ public class FriendServiceImpl implements FriendInterface {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User " + friendId + " not found");
         }
 
-        User user = optionalUser.get();
-        return DtoMapper.toDto(user, UserDto.class);
+        return DtoMapper.toDto(optionalUser.get(), UserDto.class);
     }
 
     @Override
@@ -65,9 +64,9 @@ public class FriendServiceImpl implements FriendInterface {
 
         List<FriendDto> friendDtoList = UserMapper.toFriendDtoList(userExist);
 
-        FriendDto friendDto = UserMapper.toFriendDto(friendExist);
+        FriendDto friendDto = DtoMapper.toDto(friendExist, FriendDto.class);
 
-        UserDto4 userDto = UserMapper.toUserDto4(userExist);
+        UserDto4 userDto = DtoMapper.toDto(userExist, UserDto4.class);
 
         friendDtoList.add(friendDto);
         friendRepository.addFriendFromUser(myId, friendId);
@@ -100,9 +99,9 @@ public class FriendServiceImpl implements FriendInterface {
 
         List<FriendDto> friendDtoList = UserMapper.toFriendDtoList(user);
 
-        FriendDto friendDto = UserMapper.toFriendDto(friendUser);
+        FriendDto friendDto = DtoMapper.toDto(friendUser, FriendDto.class);
 
-        UserDto4 userDto = UserMapper.toUserDto4(user);
+        UserDto4 userDto = DtoMapper.toDto(user, UserDto4.class);
 
         friendDtoList.remove(friendDto);
 
