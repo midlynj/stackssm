@@ -1,5 +1,6 @@
 package com.example.stacks.service;
 
+import com.example.stacks.component.DtoMapper;
 import com.example.stacks.dto.UserDto;
 import com.example.stacks.dto.UserDto2;
 import com.example.stacks.entity.*;
@@ -55,13 +56,8 @@ public class UserServiceImpl implements UserInterface {
         List<User> users = userRepository.findAll();
 
         return users.stream().map(user -> {
-            UserDto userDTO = new UserDto();
-            userDTO.setId(user.getId());
-            userDTO.setFirstName(user.getFirstName());
-            userDTO.setEmail(user.getEmail());
-            userDTO.setLastName(user.getLastName());
-            userDTO.setFriends(user.getFriends());
-            return userDTO;
+         
+            return DtoMapper.toDto(user, UserDto.class);
         })    .collect(Collectors.toList());
     }
 
@@ -152,7 +148,6 @@ public class UserServiceImpl implements UserInterface {
         }
 
         UserDto2 userDto = new UserDto2(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(),userExist.getRoles(), userExist.getFriends(), userExist.getPosts());
-
         LOGGER.info("User successfully signed in");
 
         return ResponseEntity.ok(userDto);

@@ -16,7 +16,7 @@ public class FriendController {
     private final FriendServiceImpl friendService;
 
     @GetMapping("/all")
-    private List<UserDto> fetchAllUserFriends() {
+    public List<UserDto> fetchAllUserFriends() {
         return friendService.fetchUserFriends();
     }
 
