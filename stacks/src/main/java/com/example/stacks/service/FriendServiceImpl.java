@@ -69,8 +69,8 @@ public class FriendServiceImpl implements FriendInterface {
         UserDto4 userDto = DtoMapper.toDto(userExist, UserDto4.class);
 
         friendDtoList.add(friendDto);
-        friendRepository.addFriendFromUser(myId, friendId);
-        friendRepository.addFriendFromUser(friendId, myId);
+        friendRepository.addFriends(myId, friendId);
+       
         userDto.setFriends(friendDtoList);
 
         LOGGER.info("Friend successfully added");
@@ -105,8 +105,8 @@ public class FriendServiceImpl implements FriendInterface {
 
         friendDtoList.remove(friendDto);
 
-        friendRepository.deleteFriendFromUser(myId, friendId);
-        friendRepository.deleteFriendFromUser(friendId, myId);
+        friendRepository.removeFriends(myId,friendId);
+
         userDto.setFriends(friendDtoList);
 
         LOGGER.info("Friend successfully removed");

@@ -147,8 +147,9 @@ public class UserServiceImpl implements UserInterface {
             return ResponseEntity.badRequest().body(new MessageResponse("Bad credentials"));
         }
 
+        UserDto2 userDto = new UserDto2(userExist.getId(), userExist.getFirstName(), userExist.getLastName(), userExist.getEmail(),userExist.getRoles(), userExist.getFriends(), userExist.getPosts());
         LOGGER.info("User successfully signed in");
 
-        return ResponseEntity.ok(DtoMapper.toDto(userExist, UserDto2.class));
+        return ResponseEntity.ok(userDto);
     }
 }
